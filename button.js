@@ -1,5 +1,6 @@
 var Gpio = require('onoff').Gpio;
-var RED = new Gpio(4, 'out');
+var RED = new Gpio(12, 'out');
+var GREEN = new Gpio(25, 'out');
 var pushButton = new Gpio(17, 'in', 'both');
 console.log('button active');
 pushButton.watch(function (err, value) {
