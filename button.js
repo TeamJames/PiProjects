@@ -2,30 +2,33 @@
 console.log('Welcome!');
 var Gpio = require('onoff').Gpio;
 var RED = new Gpio(12, 'out');
-var GREEN = new Gpio(16, 'out');
-var pushButton = new Gpio(4, 'in', 'both');
-
-pushButton.watch(function(err, value){
+var GREEN = new Gpio(21, 'out');
+var buttonUp = new Gpio(4, 'in', 'rising');
+var buttonDown = new Gpio(26, 'in', 'falling');
+buttonUp.watch(function(err, value){
+    if(err){
+        console.error('There was an error', err);
+        return;
+    };
+    RED.writeSync(0);
+    GREEN.writeSync(1);
+});
+buttonDown.watch(function(err, value){
     if(err){
         console.error('There was an error', err);
         return;
     }
-    RED.writeSync(value);
-    toggleGreen();
+    RED.writeSync(1);
+    GREEN.writeSync(0);
 });
-
-function toggleGreen(){
-    if(GREEN.readSync === 0){
-        GREEN.writeSync(1);
-    } else {
-        GREEN.writeSync(0);
-    }
-};
-
 function unexportOnClose(){
     RED.writeSync(0);
     RED.unexport();
-    pushButton.unexport();
+    GREEN.writeSync(0);
+    GREEN.unexport();
+    buttonUp.unexport();
+    buttonDown.unexport();
+    console.log('Thank You!');
 };
 
 process.on('SIGINT', unexportOnClose);
