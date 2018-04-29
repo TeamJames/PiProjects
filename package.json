@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/TeamJames/PiProjects/issues"
   },
-  "homepage": "https://github.com/TeamJames/PiProjects#readme"
+  "homepage": "https://github.com/TeamJames/PiProjects#readme",
+  "dependencies": {
+    "onoff": "^3.0.2"
+  }
 }
