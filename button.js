@@ -8,7 +8,7 @@ pushButton.watch(function (err, value) {
         console.error('There was an error', err);
         return;
     }
-    red.writeSync(value);
+    RED.writeSync(value);
     toggleGreen();
 });
 function toggleGreen(){
