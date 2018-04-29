@@ -5,7 +5,7 @@ var fs = require('fs');
 var io = require('socket.io')(http);
 var Gpio = require('onoff').Gpio;
 var RED = new Gpio(26, 'out');
-var pushButton = new Gpio(17, 'out', 'both');
+var pushButton = new Gpio(17, 'in', 'both');
 
 http.listen(8080);
 
@@ -28,7 +28,6 @@ function handler (req, res) { //create server
         console.error('There was an error', err);
         return;
       };
-      console.log('button was pushed');
       lightValue = value;
       socket.emit('light', lightValue);
     });
@@ -36,7 +35,6 @@ function handler (req, res) { //create server
       lightValue = data;
       if (lightValue != RED.readSync()) {
         RED.writeSync(lightValue);
-        // console.log(lightValue);
       }
     });
   });
