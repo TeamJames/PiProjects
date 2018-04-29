@@ -1,7 +1,8 @@
 'use strict';
-
+console.log('Welcome!');
 var Gpio = require('onoff').Gpio;
 var RED = new Gpio(12, 'out');
+var GREEN = new Gpio(16, 'out');
 var pushButton = new Gpio(4, 'in', 'both');
 
 pushButton.watch(function(err, value){
@@ -10,7 +11,16 @@ pushButton.watch(function(err, value){
         return;
     }
     RED.writeSync(value);
+    toggleGreen();
 });
+
+function toggleGreen(){
+    if(GREEN.readSync === 0){
+        GREEN.writeSync(1);
+    } else {
+        GREEN.writeSync(0);
+    }
+};
 
 function unexportOnClose(){
     RED.writeSync(0);
