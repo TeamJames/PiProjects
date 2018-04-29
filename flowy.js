@@ -36,4 +36,4 @@ var LED04 = new Gpio(4, 'out'), //use declare variables for all the GPIO output 
       return console.log('Thank You!');
   };
 
-  proces.on('SIGINT', unexportOnClose);
+  process.on('SIGINT', unexportOnClose);
