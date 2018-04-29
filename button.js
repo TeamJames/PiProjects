@@ -1,5 +1,5 @@
 var Gpio = require('onoff').Gpio;
-var LED = new Gpio(4, 'out');
+var RED = new Gpio(4, 'out');
 var pushButton = new Gpio(17, 'in', 'both');
 console.log('button active');
 pushButton.watch(function (err, value) {
@@ -7,12 +7,22 @@ pushButton.watch(function (err, value) {
         console.error('There was an error', err);
         return;
     }
-    LED.writeSync(value);
+    red.writeSync(value);
+    toggleGreen();
 });
+function toggleGreen(){
+    if(readSync === 0){
+        writeSync(1);
+    } else {
+        writeSync(0);
+    };
+};
 
 function unexportOnClose(){
-    LED.writeSync(0);
-    LED.unexport();
+    RED.writeSync(0);
+    GREEN.writeSync(0);
+    RED.unexport();
+    GREEN.unexport();
     pushButton.unexport();
     console.log('Thank You!');
 };
