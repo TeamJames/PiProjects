@@ -2,6 +2,7 @@
 
 var http = require('http').createServer(handler);
 var fs = require('fs');
+var io = require('socket.io')(http)
 
 http.listen(8080);
 
@@ -17,3 +18,12 @@ function handler (req, res) { //create server
     });
   }
   
+  io.sockets.on('connection', function(socket){
+    var lightValue = 0;
+    socket.on('light', function(data){
+      lightValue = data;
+      if (lightValue) {
+        console.log(lightValue);
+      }
+    });
+  });
