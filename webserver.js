@@ -28,9 +28,9 @@ function handler (req, res) { //create server
         console.error('There was an error', err);
         return;
       };
+      console.log('button was pushed');
       lightValue = value;
       socket.emit('light', lightValue);
-
     });
     socket.on('light', function(data){
       lightValue = data;
