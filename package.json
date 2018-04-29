@@ -1,0 +1,19 @@
+{
+  "name": "piprojects",
+  "version": "1.0.0",
+  "description": "Scripts for Raspberry Pi projects",
+  "main": "blink.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamJames/PiProjects.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeamJames/PiProjects/issues"
+  },
+  "homepage": "https://github.com/TeamJames/PiProjects#readme"
+}
