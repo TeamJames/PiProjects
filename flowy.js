@@ -13,7 +13,7 @@ var LED04 = new Gpio(4, 'out'), //use declare variables for all the GPIO output 
 
   var leds = [LED04, LED17, LED27, LED22, LED18, LED23, LED24, LED25];
   var indexCount = 0;
-  dir = "up";
+  var dir = "up";
 
   var flowInterval = setInterval(flowingLeds, 100);
 
