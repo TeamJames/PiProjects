@@ -4,6 +4,7 @@
 
 var Gpio = require('onoff').Gpio;
 // var buttonUp = new Gpio(4, 'in', 'rising');
+var green = new Gpio(4, 'out');
 var buttonDown = new Gpio(26, 'in', 'falling');
 
 let counter = 0;
@@ -17,7 +18,7 @@ buttonDown.watch(function(err, value){
     console.log('button falling value:     ', value);
     console.log('Counter: ', counter);
     // RED.writeSync(0);
-    // GREEN.writeSync(1);
+    green.writeSync(1);
 });
 // buttonDown.watch(function(err, value){
 //     if(err){
@@ -30,8 +31,8 @@ buttonDown.watch(function(err, value){
 function unexportOnClose(){
     // RED.writeSync(0);
     // RED.unexport();
-    // GREEN.writeSync(0);
-    // GREEN.unexport();
+    green.writeSync(0);
+    green.unexport();
     // buttonUp.unexport();
     buttonDown.unexport();
 };
