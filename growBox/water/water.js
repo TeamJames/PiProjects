@@ -19,36 +19,21 @@ mockedMoistureSensor.watch(function(err, value){
     waterStart();
 });
 
-// function waterStart(){
-//     console.log('watering plants');
-//     mockedWaterPump.writeSync(1);
-//     setTimeout(() => {
-//         console.log('turning off the water');
-//         mockedWaterPump.writeSync(0);
-//         wateredPlants();
-//     }, 500);
-// };
-
-function waterStart(){
-    console.log('watering plants');
-    const bill = function(){
-        console.log('plants are watered');
-        unexportOnClose();
-    };
-    setTimeout(bill, 5000);
-
+const waterStop = function(){
+    mockedWaterPump.writeSync(0);
+    console.log('plants are watered');
+    wateredPlants();
 };
 
+const waterStart = function(){
+    console.log('watering plants');
+    mockedWaterPump.writeSync(1);
+    setTimeout(waterStop, 5000);
+};
 
-// function waterStop(){
-//     console.log('turning off the water');
-//     mockedWaterPump.writeSync(0);
-//     wateredPlants();
-// };
-
-function wateredPlants(){
-    thirstyPlants.writeSync(0);
+const wateredPlants = function(){
     console.log('Plants are well hydrated');
+    thirstyPlants.writeSync(0);
     unexportOnClose();
 };
 
