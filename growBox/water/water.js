@@ -1,28 +1,12 @@
-//  use button to simulate thirstyGirl event
-
 'use strict';
 
-var Gpio = require('onoff').Gpio;
-// var buttonUp = new Gpio(4, 'in', 'rising');
-var green = new Gpio(4, 'out');
-var buttonDown = new Gpio(26, 'in', 'rising');
+const Gpio = require('onoff').Gpio;
+const mockedWaterPump = new Gpio(27, 'out');
 
-let counter = 0;
+const green = new Gpio(4, 'out');
+export default class Water {
 
-buttonDown.watch(function(err, value){
-    if(err){
-        console.error('There was an error', err);
-        return;
-    };
-    counter +=1;
-    console.log('Counter: ', counter);
-    green.writeSync(1);
-});
-
-function unexportOnClose(){
-    green.writeSync(0);
-    green.unexport();
-    buttonDown.unexport();
+  start(){
+    mockedWaterPump.writeSync(1);
+  }
 };
-
-process.on('SIGINT', unexportOnClose);
