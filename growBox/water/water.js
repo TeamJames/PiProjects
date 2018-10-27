@@ -17,20 +17,20 @@ const mockedMoistureSensor = new Gpio(13, 'in', 'rising');
 
 let reservoir = 0;
 
-// startButton.watch(function(err){
-//     if(err){
-//         return console.error(err);
-//     }
-//     mockedStatus.writeSync(1);
-//     console.log('growBox started on port 420');
-//     status();
-// });
 startButton.watch(function(err){
     if(err){
         return console.error(err);
     }
-    test.testy();
-})
+    mockedStatus.writeSync(1);
+    console.log('growBox started on port 420');
+    status();
+});
+// startButton.watch(function(err){
+//     if(err){
+//         return console.error(err);
+//     }
+//     test.testy();
+// })
 
 mockedMoistureSensor.watch(function(err){
     if(err){
@@ -55,11 +55,11 @@ mockedDrainValve.watch(function(err){
     drainWaste();
 });
 
-function waterStart() {
-    console.log('water pump on');
-    waterPumpLED.writeSync(1);
-    setTimeout(waterStop, 2000);
-};
+// function waterStart() {
+//     console.log('water pump on');
+//     waterPumpLED.writeSync(1);
+//     setTimeout(waterStop, 2000);
+// };
 
 function waterStop(){
     console.log('water pump off');
