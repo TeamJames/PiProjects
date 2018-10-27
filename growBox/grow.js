@@ -19,7 +19,7 @@ startButton.watch(function(err, value){
   if(err){
     return console.error(err);
   }
-  cheech.reset();
+  reset();
   serverStatus.writeSync(1);
 });
 
@@ -37,7 +37,7 @@ mockedDrainValveRelay.watch(function(err, value){
     return console.error(err);
   }
   console.log('Drain valve sensor indicates waste reservoir is full');
-  water.startDrainingWaste();
+  startDrainingWaste();
 });
 
 stopButton.watch(function(err, value){
