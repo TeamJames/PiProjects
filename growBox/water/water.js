@@ -24,32 +24,33 @@ const waterStart = function(){
     console.log('water pump on');
     mockedWaterPump.writeSync(1);
     setTimeout(waterStop, 5000);
+    setTimeout(startDrainingWaste, 5250);
+    setTimeout(, 9250);
+    //  doing all this with timers to simulate real-world async actions that will rely on sensor input and event listeners later on
+
 };
 
 const waterStop = function(){
     console.log('water pump off');
     mockedWaterPump.writeSync(0);
-    setTimeout(wateredPlants, 2000);
 };
+
+const startDrainingWaste = function(){
+    console.log('opening drain valve');
+    mockedDrainValve.writeSync(1);
+    const stopDrainingWaste = function(){
+      console.log('closing drain valve');
+      mockedDrainValve.writeSync(0);
+    };
+    setTimeout(stopDrainingWaste, 3000);
+};
+
+
 
 const wateredPlants = function(){
     console.log('Plants are well hydrated');
-    const watered = function(){
-        thirstyPlants.writeSync(0);
-        const startDrainingWaste = function(){
-            console.log('opening drain valve');
-            mockedDrainValve.writeSync(1);
-            const stopDrainingWaste = function(){
-                console.log('closing drain valve');
-                mockedDrainValve.writeSync(0);
-            };
-            setTimeout(stopDrainingWaste, 3000);
-        };
-        setTimeout(startDrainingWaste, 3000);
-    };
-    setTimeout(watered, 1000);
     thirstyPlants.writeSync(0);
-    mockedWaterPump.writeSync(0);
+    setTimeout(waterStop, 1000);
     console.log('growBox ready');
 };
 
