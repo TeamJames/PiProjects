@@ -5,7 +5,7 @@ const Gpio = require('onoff').Gpio;
 const test = require('../test/test.js');
 
 const thirstyPlants = new Gpio(12, 'out');
-const waterPumpLED = new Gpio(20, 'out');
+
 const drainValveLED = new Gpio(16, 'out');
 const mockedStatus = new Gpio(21, 'out');
 
@@ -61,17 +61,17 @@ mockedDrainValve.watch(function(err){
 //     setTimeout(waterStop, 2000);
 // };
 
-function waterStop(){
-    console.log('water pump off');
-    thirstyPlants.writeSync(0);
-    console.log('plants are well hydrated');
-    waterPumpLED.writeSync(0);
-    reservoir +=1;
-    if(reservoir === 10){
-        return drainWaste();
-    };
-    status();
-};
+// function waterStop(){
+//     console.log('water pump off');
+//     thirstyPlants.writeSync(0);
+//     console.log('plants are well hydrated');
+//     waterPumpLED.writeSync(0);
+//     reservoir +=1;
+//     if(reservoir === 10){
+//         return drainWaste();
+//     };
+//     status();
+// };
 
 function drainWaste(){
     console.log('opening drain valve');
@@ -111,8 +111,8 @@ function status(){
 const unexportOnClose = function(){
     thirstyPlants.writeSync(0);
     thirstyPlants.unexport();
-    waterPumpLED.writeSync(0);
-    waterPumpLED.unexport();
+    // waterPumpLED.writeSync(0);
+    // waterPumpLED.unexport();
     drainValveLED.writeSync(0);
     drainValveLED.unexport();
     mockedStatus.writeSync(0);
@@ -125,5 +125,3 @@ const unexportOnClose = function(){
 };
 
 process.on('SIGINT', unexportOnClose);
-
-export { waterPumpLED };
