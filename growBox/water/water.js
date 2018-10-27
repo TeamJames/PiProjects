@@ -35,7 +35,7 @@ function waterStart(){
         console.log('plants are watered');
         unexportOnClose();
     };
-    setTimeout(bill, 500);
+    setTimeout(bill, 5000);
 
 };
 
