@@ -2,7 +2,7 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Water = require('./water/water.js');
+const water = require('./water/water.js');
 const cheech = new Water;
 
 const serverStatus = new Gpio(21, 'out');
@@ -19,7 +19,7 @@ startButton.watch(function(err, value){
   if(err){
     return console.error(err);
   }
-  reset();
+  water.reset();
   serverStatus.writeSync(1);
 });
 
@@ -65,5 +65,3 @@ const unexportOnClose = function(){
 };
 
 process.on('SIGINT', unexportOnClose);
-
-module.exports = serverStatus, thirstyPlants, mockedWaterPump, mockedDrainValve;
