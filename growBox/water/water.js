@@ -8,6 +8,7 @@ const thirstyPlants = new Gpio(4, 'out');
 const mockedWaterPump = new Gpio(27, 'out');
 const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
 
+console.log('growBox started on port 420');
 
 mockedMoistureSensor.watch(function(err, value){
     if(err){
@@ -16,28 +17,30 @@ mockedMoistureSensor.watch(function(err, value){
     };
     console.log('Plants are thirsty!');
     thirstyPlants.writeSync(1);
-    setTimeout(waterStart, 1500;
+    setTimeout(waterStart, 2000);
 });
 
 const waterStart = function(){
-    console.log('watering plants');
+    console.log('water pump on');
     mockedWaterPump.writeSync(1);
     setTimeout(waterStop, 5000);
 };
 
 const waterStop = function(){
+    console.log('water pump off');
     mockedWaterPump.writeSync(0);
-    console.log('plants are watered');
-    wateredPlants();
+    setTimeout(wateredPlants, 2000);
 };
 
 const wateredPlants = function(){
     console.log('Plants are well hydrated');
     const watered = function(){
-        thirstyPlants.writesync(0);
+        thirstyPlants.writeSync(0);
     };
-    setTimeout(thirstyPlants, 500);
-    unexportOnClose();
+    setTimeout(watered, 500);
+    thirstyPlants.writeSync(0);
+    mockedWaterPump.writeSync(0);
+    console.log('growBox ready');
 };
 
 const unexportOnClose = function(){
