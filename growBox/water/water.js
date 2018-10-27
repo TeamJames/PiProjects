@@ -13,6 +13,7 @@ const mockedDrainValve = new Gpio(26, 'in', 'rising');
 const startButton = new Gpio(19, 'in', 'rising');
 const mockedMoistureSensor = new Gpio(13, 'in', 'rising');
 
+let reservoir = 0;
 
 startButton.watch(function(err){
     if(err){
@@ -57,13 +58,17 @@ function waterStop(){
     thirstyPlants.writeSync(0);
     console.log('plants are well hydrated');
     waterPumpLED.writeSync(0);
+    reservoir +=1;
+    if(reservoir === 10){
+        return drainWaste();
+    };
     status();
 };
 
 function drainWaste(){
     console.log('opening drain valve');
     drainValveLED.writeSync(1);
-    setTimeout(closeWasteValve, 3000);
+    setTimeout(closeWasteValve, 5000);
 };
 
 function closeWasteValve(){
@@ -91,6 +96,7 @@ function status(){
     if(mockedStatus.readSync() === 1){
         console.log('system ready');
     }
+    console.log('Waste Resevoir is ', reservoir, '/10 full');
 };
 
 const unexportOnClose = function(){
