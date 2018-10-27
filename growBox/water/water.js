@@ -45,7 +45,7 @@ mockedWaterPump.watch(function(err){
     if(err){
         return console.error(err);
     }
-    waterStart();
+    test.waterStart();
 });
 
 mockedDrainValve.watch(function(err){
