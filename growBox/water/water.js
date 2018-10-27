@@ -20,8 +20,8 @@ buttonDown.watch(function(err, value){
 });
 
 function unexportOnClose(){
-    green-.writeSync(0);
-    green-.unexport();
+    green.writeSync(0);
+    green.unexport();
     buttonDown.unexport();
 };
 
