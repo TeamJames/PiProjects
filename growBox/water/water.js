@@ -9,7 +9,7 @@ const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
 
 console.log('growBox started on port 420');
 
-mockedMoistureSensor.watch(function(err, value){
+mockedMoistureSensor.watch(function(err){
     if(err){
         return console.error('There was an error', err);;
     };
