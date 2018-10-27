@@ -23,7 +23,9 @@ function waterStart() {
     mockedWaterPump.writeSync(1);
     setTimeout(waterStop, 5000);
     setTimeout(startDrainingWaste, 5250);
-    setTimeout(wateredPlants, 9250);
+    function hydrated() {console.log('Plants are well hydrated');}
+    setTimeout(hydrated, 9250);
+    setTimeout(shutDown, 9500);
     //  doing all this with timers to simulate real-world async actions that will rely on sensor input and event listeners later on
 
 };
@@ -45,9 +47,10 @@ const startDrainingWaste = function(){
 
 
 
-function wateredPlants() {
-    console.log('Plants are well hydrated');
+function shutDown() {
     thirstyPlants.writeSync(0);
+    mockedWaterPump.writeSync(0);
+    mockedDrainValve.writeSync(0);
     console.log('growBox ready');
 };
 
