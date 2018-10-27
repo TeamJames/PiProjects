@@ -30,5 +30,9 @@ const lights = import('../grow.js');
         console.log('growBox ready');
     };
 
-module.exports = waterStart, waterStop, startDrainingWaste, stopDrainingWaste, reset;
+    function test() {
+        console.log('testtesttesttesttesttest');
+    };
+
+module.exports = test,waterStart, waterStop, startDrainingWaste, stopDrainingWaste, reset;
 

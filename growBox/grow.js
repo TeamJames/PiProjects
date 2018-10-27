@@ -19,7 +19,8 @@ startButton.watch(function(err, value){
   if(err){
     return console.error(err);
   }
-  water.reset();
+  // water.reset();
+  test();
   serverStatus.writeSync(1);
 });
 
