@@ -1,5 +1,9 @@
 'use strict';
 
+const serverStatus = new Gpio(21, 'out');
+const thirstyPlants = new Gpio(12, 'out');
+const mockedWaterPump = new Gpio(20, 'out');
+const mockedDrainValve = new Gpio(16, 'out');
 
 
     function waterStart() {
