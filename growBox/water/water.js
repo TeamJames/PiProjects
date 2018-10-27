@@ -33,8 +33,10 @@ const waterStop = function(){
 
 const wateredPlants = function(){
     console.log('Plants are well hydrated');
-    setTimeout(thirstyPlants.writeSync(0), 500);
-    // thirstyPlants.writeSync(0);
+    const watered = function(){
+        thirstyPlants.writesync(0);
+    };
+    setTimeout(thirstyPlants, 500);
     unexportOnClose();
 };
 
