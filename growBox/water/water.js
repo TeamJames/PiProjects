@@ -35,9 +35,9 @@ const waterStop = function(){
 const wateredPlants = function(){
     console.log('Plants are well hydrated');
     const watered = function(){
-        thirstyPlants.writesync(0);
+        thirstyPlants.writeSync(0);
     };
-    setTimeout(thirstyPlants, 500);
+    setTimeout(watered, 500);
     thirstyPlants.writeSync(0);
     mockedWaterPump.writeSync(0);
     console.log('growBox ready');
