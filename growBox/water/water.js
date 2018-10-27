@@ -21,7 +21,7 @@ mockedMoistureSensor.watch(function(err, value){
 
 function waterStart(){
     console.log('watering plants');
-    mockedWaterPump.writesync(1);
+    mockedWaterPump.writeSync(1);
     setTimeout(waterStop(), 500);
 };
 
