@@ -1,5 +1,3 @@
-//  use button to simulate thirstyGirl event
-
 'use strict';
 
 const Gpio = require('onoff').Gpio;
@@ -50,7 +48,6 @@ const startDrainingWaste = function(){
 function wateredPlants() {
     console.log('Plants are well hydrated');
     thirstyPlants.writeSync(0);
-    setTimeout(waterStop, 1000);
     console.log('growBox ready');
 };
 
