@@ -1,13 +1,17 @@
 'use strict';
 
-const Gpio = require('onoff').Gpio;
+// const Gpio = require('onoff').Gpio;
 
-const test = require('../test/test.js');
+// const test = require('../test/test.js');
 
-const thirstyPlants = new Gpio(4, 'out');
-const mockedWaterPump = new Gpio(27, 'out');
-const mockedDrainValve = new Gpio(6, 'out');
-const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
+// const serverStatus = new Gpio(21, 'out');
+// const thirstyPlants = new Gpio(12, 'out');
+// const mockedWaterPump = new Gpio(20, 'out');
+// const mockedDrainValve = new Gpio(16, 'out');
+// const startButton = new Gpio(19, 'in', 'rising');
+// const mockedMoistureSensor = new Gpio(13, 'in', 'rising');
+// const stopButton = new Gpio(26, 'in', 'rising');
+
 
 console.log('growBox started on port 420');
 test();
@@ -18,19 +22,13 @@ mockedMoistureSensor.watch(function(err, value){
     };
     console.log('Plants are thirsty!');
     thirstyPlants.writeSync(1);
-    setTimeout(waterStart, 2000);
+    setTimeout(waterStart, 2000)
 });
 
-function waterStart() {
+function waterStart(callback) {
     console.log('water pump on');
     mockedWaterPump.writeSync(1);
     setTimeout(waterStop, 5000);
-    setTimeout(startDrainingWaste, 5250);
-    function hydrated() {console.log('Plants are well hydrated');}
-    setTimeout(hydrated, 9250);
-    setTimeout(shutDown, 9500);
-    //  doing all this with timers to simulate real-world async actions that will rely on sensor input and event listeners later on
-
 };
 
 const waterStop = function(){
