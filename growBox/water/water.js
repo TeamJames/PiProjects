@@ -20,12 +20,12 @@ mockedMoistureSensor.watch(function(err, value){
     setTimeout(waterStart, 2000);
 });
 
-const waterStart = function(){
+function waterStart = (){
     console.log('water pump on');
     mockedWaterPump.writeSync(1);
     setTimeout(waterStop, 5000);
-    setTimeout(startDrainingWaste, 5250);
-    setTimeout(, 9250);
+    setTimeout(startDrainingWaste, 250);
+    // setTimeout(, 9250);
     //  doing all this with timers to simulate real-world async actions that will rely on sensor input and event listeners later on
 
 };
@@ -47,7 +47,7 @@ const startDrainingWaste = function(){
 
 
 
-const wateredPlants = function(){
+function wateredPlants = (){
     console.log('Plants are well hydrated');
     thirstyPlants.writeSync(0);
     setTimeout(waterStop, 1000);
