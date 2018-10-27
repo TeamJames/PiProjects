@@ -74,6 +74,7 @@ function drainWaste(){
 function closeWasteValve(){
     console.log('closing drain valve');
     drainValveLED.writeSync(0);
+    reservoir = 0;
     status();
 };
 
