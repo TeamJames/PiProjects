@@ -47,7 +47,7 @@ const startDrainingWaste = function(){
 
 
 
-function wateredPlants = (){
+function wateredPlants() {
     console.log('Plants are well hydrated');
     thirstyPlants.writeSync(0);
     setTimeout(waterStop, 1000);
