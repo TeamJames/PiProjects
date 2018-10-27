@@ -125,3 +125,5 @@ const unexportOnClose = function(){
 };
 
 process.on('SIGINT', unexportOnClose);
+
+export { waterPumpLED };
