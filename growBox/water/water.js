@@ -2,6 +2,8 @@
 
 const Gpio = require('onoff').Gpio;
 
+const test = require('../test/test.js');
+
 const thirstyPlants = new Gpio(12, 'out');
 const waterPumpLED = new Gpio(20, 'out');
 const drainValveLED = new Gpio(16, 'out');
@@ -15,14 +17,20 @@ const mockedMoistureSensor = new Gpio(13, 'in', 'rising');
 
 let reservoir = 0;
 
+// startButton.watch(function(err){
+//     if(err){
+//         return console.error(err);
+//     }
+//     mockedStatus.writeSync(1);
+//     console.log('growBox started on port 420');
+//     status();
+// });
 startButton.watch(function(err){
     if(err){
         return console.error(err);
     }
-    mockedStatus.writeSync(1);
-    console.log('growBox started on port 420');
-    status();
-});
+    test.testy();
+})
 
 mockedMoistureSensor.watch(function(err){
     if(err){
