@@ -65,3 +65,5 @@ const unexportOnClose = function(){
 };
 
 process.on('SIGINT', unexportOnClose);
+
+module.exports = serverStatus, thirstyPlants, mockedWaterPump, mockedDrainValve;

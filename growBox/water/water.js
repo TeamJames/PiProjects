@@ -1,10 +1,5 @@
 'use strict';
-
-const serverStatus = new Gpio(21, 'out');
-const thirstyPlants = new Gpio(12, 'out');
-const mockedWaterPump = new Gpio(20, 'out');
-const mockedDrainValve = new Gpio(16, 'out');
-
+const var = import('../grow.js');
 
     function waterStart() {
         console.log('water pump on');
