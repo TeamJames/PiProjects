@@ -2,8 +2,8 @@
 
 const Gpio = require('onoff').Gpio;
 
-const water = require('./water/water.js');
-const test = require('../test/test.js');
+const Water = require('./water/water.js');
+const cheech = new Water;
 
 const serverStatus = new Gpio(21, 'out');
 const thirstyPlants = new Gpio(12, 'out');
@@ -19,7 +19,7 @@ startButton.watch(function(err, value){
   if(err){
     return console.error(err);
   }
-  water.reset();
+  cheech.reset();
   serverStatus.writeSync(1);
 });
 
