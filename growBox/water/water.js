@@ -2,38 +2,63 @@
 
 'use strict';
 
-var Gpio = require('onoff').Gpio;
-// var buttonUp = new Gpio(4, 'in', 'rising');
-var buttonDown = new Gpio(26, 'in', 'falling');
+const Gpio = require('onoff').Gpio;
 
-let counter = 0;
+const thirstyPlants = new Gpio(4, 'out');
+const mockedWaterPump = new Gpio(27, 'out');
+const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
 
-buttonDown.watch(function(err, value){
+
+mockedMoistureSensor.watch(function(err, value){
     if(err){
         console.error('There was an error', err);
         return;
     };
-    counter +=1;
-    console.log('button falling value:     ', value);
-    console.log('Counter: ', counter);
-    // RED.writeSync(0);
-    // GREEN.writeSync(1);
+    console.log('Plants are thirsty!');
+    thirstyPlants.writeSync(1);
+    waterStart();
 });
-// buttonDown.watch(function(err, value){
-//     if(err){
-//         console.error('There was an error', err);
-//         return;
-//     }
-//     RED.writeSync(1);
-//     GREEN.writeSync(0);
-// });
+
+// function waterStart(){
+//     console.log('watering plants');
+//     mockedWaterPump.writeSync(1);
+//     setTimeout(() => {
+//         console.log('turning off the water');
+//         mockedWaterPump.writeSync(0);
+//         wateredPlants();
+//     }, 500);
+// };
+
+function waterStart(){
+    console.log('watering plants');
+    const bill = function(){
+        console.log('plants are watered');
+        unexportOnClose();
+    };
+    setTimeout(bill, 500);
+
+};
+
+
+// function waterStop(){
+//     console.log('turning off the water');
+//     mockedWaterPump.writeSync(0);
+//     wateredPlants();
+// };
+
+function wateredPlants(){
+    thirstyPlants.writeSync(0);
+    console.log('Plants are well hydrated');
+    unexportOnClose();
+};
+
 function unexportOnClose(){
-    // RED.writeSync(0);
-    // RED.unexport();
-    // GREEN.writeSync(0);
-    // GREEN.unexport();
-    // buttonUp.unexport();
-    buttonDown.unexport();
+    thirstyPlants.writeSync(0);
+    mockedWaterPump.writeSync(0);
+    thirstyPlants.unexport();
+    mockedWaterPump.unexport();
+    mockedMoistureSensor.unexport();
+    console.log('growbox shut down');
 };
 
 process.on('SIGINT', unexportOnClose);
