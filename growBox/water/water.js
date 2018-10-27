@@ -22,8 +22,8 @@ mockedMoistureSensor.watch(function(err, value){
 const waterStop = function(){
     mockedWaterPump.writeSync(0);
     console.log('plants are watered');
-    // wateredPlants();
-    unexportOnClose();
+    wateredPlants();
+    // unexportOnClose();
 };
 
 const waterStart = function(){
