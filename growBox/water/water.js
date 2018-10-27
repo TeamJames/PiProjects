@@ -5,7 +5,7 @@
 var Gpio = require('onoff').Gpio;
 // var buttonUp = new Gpio(4, 'in', 'rising');
 var green = new Gpio(4, 'out');
-var buttonDown = new Gpio(26, 'out', 'falling');
+var buttonDown = new Gpio(26, 'in', 'rising');
 
 let counter = 0;
 
