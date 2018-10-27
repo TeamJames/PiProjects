@@ -3,11 +3,11 @@
 'use strict';
 
 const Gpio = require('onoff').Gpio;
-const water = require('./water.js');
 
 const thirstyPlants = new Gpio(4, 'out');
-const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
 const mockedWaterPump = new Gpio(27, 'out');
+const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
+
 
 mockedMoistureSensor.watch(function(err, value){
     if(err){
@@ -20,11 +20,13 @@ mockedMoistureSensor.watch(function(err, value){
 });
 
 function waterStart(){
+    console.log('watering plants');
     mockedWaterPump.writesync(1);
     setTimeout(waterStop(), 500);
 };
 
 function waterStop(){
+    console.log('turning off the water');
     mockedWaterPump.writeSync(0);
     wateredPlants();
 };
