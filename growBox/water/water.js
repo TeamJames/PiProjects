@@ -2,7 +2,7 @@
 
 const Gpio = require('onoff').Gpio;
 
-const Test = require('../test/test.js');
+const test = require('../test/test.js');
 
 const thirstyPlants = new Gpio(4, 'out');
 const mockedWaterPump = new Gpio(27, 'out');
@@ -10,9 +10,7 @@ const mockedDrainValve = new Gpio(6, 'out');
 const mockedMoistureSensor = new Gpio(26, 'in', 'rising');
 
 console.log('growBox started on port 420');
-let cheech = new Test;
-console.log(cheech.speak);
-
+test();
 
 mockedMoistureSensor.watch(function(err, value){
     if(err){
