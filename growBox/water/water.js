@@ -1,20 +1,20 @@
 'use strict';
-const var = import('../grow.js');
+const lights = import('../grow.js');
 
     function waterStart() {
         console.log('water pump on');
-        mockedWaterPump.writeSync(1);
+        lights.mockedWaterPump.writeSync(1);
         setTimeout(waterStop, 5000);
     };
 
     function waterStop() {
         console.log('water pump off');
-        mockedWaterPump.writeSync(0);
+        lights.mockedWaterPump.writeSync(0);
     };
 
     function startDrainingWaste() {
         console.log('opening drain valve');
-        mockedDrainValve.writeSync(1);
+        this.mockedDrainValve.writeSync(1);
         setTimeout(stopDrainingWaste, 3000);
     };
 
