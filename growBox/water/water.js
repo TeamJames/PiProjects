@@ -29,7 +29,7 @@ mockedMoistureSensor.watch(function(err){
     };
     console.log('Plants are thirsty!');
     thirstyPlants.writeSync(1);
-    setTimeout(waterStart, 2000);
+    // setTimeout(waterStart, 2000);
 });
 
 mockedWaterPump.watch(function(err){
@@ -54,6 +54,8 @@ function waterStart() {
 
 function waterStop(){
     console.log('water pump off');
+    thirstyPlants.writeSync(0);
+    console.log('plants are well hydrated');
     waterPumpLED.writeSync(0);
     status();
 };
