@@ -3,7 +3,7 @@
 const Gpio = require('onoff').Gpio;
 
 const water = require('./water/water.js');
-const cheech = new Water;
+
 
 const serverStatus = new Gpio(21, 'out');
 const thirstyPlants = new Gpio(12, 'out');
