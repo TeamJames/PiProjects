@@ -37,7 +37,9 @@ const wateredPlants = function(){
         thirstyPlants.writesync(0);
     };
     setTimeout(thirstyPlants, 500);
-    unexportOnClose();
+    thirstyPlants.writeSync(0);
+    mockedWaterPump.writeSync(0);
+    console.log('growBox ready');
 };
 
 const unexportOnClose = function(){
