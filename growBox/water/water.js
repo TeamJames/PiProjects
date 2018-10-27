@@ -3,7 +3,7 @@ const lights = import('../grow.js');
 
     function waterStart() {
         console.log('water pump on');
-        lights.mockedWaterPump.writeSync(1);
+        this.mockedWaterPump.writeSync(1);
         setTimeout(waterStop, 5000);
     };
 
