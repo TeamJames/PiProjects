@@ -22,6 +22,6 @@ module.exports = {
     waterStart() {
         console.log('water pump on');
         waterPumpLED.writeSync(1);
-        setTimeout(waterStop, 2000);
+        setTimeout(this.waterStop, 2000);
     }
 };
