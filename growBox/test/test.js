@@ -1,5 +1,7 @@
 'use strict';
 
+//  instead of requiring the Gpio, can I declare a variable as gpio.readsync()?
+
 const Gpio = require('onoff').Gpio;
 const waterPumpLED = new Gpio(20, 'out');
 
