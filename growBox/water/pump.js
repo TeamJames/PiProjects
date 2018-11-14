@@ -21,4 +21,14 @@ pumpButton.watch(function(err){
         return console.error(err);
     }
     waterStart();
-});
+  });
+  
+  const unexportOnClose = function(){
+    // pumpRelay.writeSync(0);
+    pumpRelay.unexport();
+    // pumpButton.writeSync(0);
+    pumpButton.unexport();
+    console.log('Water Pump Shut Down');
+};
+
+process.on('SIGINT', unexportOnClose);
