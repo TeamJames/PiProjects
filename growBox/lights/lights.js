@@ -25,18 +25,15 @@ function lightsOff(){
 function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
-  console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
-  if(currentTime.hours >= 22 && currentTime.minutes === 40){
+  if(currentTime.hours >= 22 && currentTime.minutes === 40 && currentTime.seconds === 01){
     console.log('good morning');
+    console.log('the current time is: ', currentTime.days, ',   ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     lightsOn();
   };
-  if(currentTime.hours >= 22 && currentTime.minutes === 45 ){
+  if(currentTime.hours >= 22 && currentTime.minutes === 45 && currentTime.seconds === 01){
+    console.log('the current time is: ', currentTime.days, ',   ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     console.log('good night');
     lightsOff();
-  };
-  if(currentTime.seconds === 30){
-    console.log('lunchtime!');
-    
   };
 };
 
