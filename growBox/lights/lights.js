@@ -13,6 +13,7 @@ function lights(){
 function lightsOn(){
   lightRelay.writeSync(1);
   lightTestRelay.writeSync(1);
+  console.log('lights are on');
 };
 
 function lightsOff(){
@@ -23,19 +24,20 @@ function lightsOff(){
 function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
-  if(currentTime.hours >= 8 && currentTime.hours < 22 && currentTime.minutes >= 0 && currentTime.seconds >= 0){
+  if(currentTime.hours >= 8 && currentTime.hours < 22){
     console.log('good morning');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     lightsOn();
   };
-  if(currentTime.hours >= 22 && currentTime.minutes >= 0  && currentTime.seconds >= 0){
+  if(currentTime.hours >= 22){
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     console.log('good night');
     lightsOff();
   };
-  if(currentTime.Hours <8 && currentTime.minutes >=0 && currentTime.seconds >= 0){
+  if(currentTime.hours < 8){
     console.log('good morning');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
+    console.log)('lights are still off');
     lightsOff();
   }
 };
