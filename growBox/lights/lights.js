@@ -26,13 +26,13 @@ function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
   console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
-  if(currentTime.seconds > 30){
-    console.log('good evening');
-    lightsOff();
-  };
-  if(currentTime.seconds < 30){
+  if(currentTime.hours >= 22 && currentTime.minutes === 40){
     console.log('good morning');
     lightsOn();
+  };
+  if(currentTime.hours >= 22 && currentTime.minutes === 45 ){
+    console.log('good night');
+    lightsOff();
   };
   if(currentTime.seconds === 30){
     console.log('lunchtime!');
