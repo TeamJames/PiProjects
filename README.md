@@ -27,8 +27,8 @@ After cloning the repo, type `npm i` to install all of the necessary dependencie
 
 ###  Pictures
 
-[![corner](./assets/corner.jpg)](corner.jpg)
-[![hoses](./assets/hoses.jpg)](hoses.jpg)
-[![lightsOn](./assets/lightsOn.jpg)](lightsOn.jpg)
-[![output](./assets/output.jpg)](output.jpg)
-[![waterRunning](./assets/waterRunning.jpg)](waterRunning.jpg)
+[![corner](./growBox/assets/corner.jpg)](corner.jpg)
+[![hoses](./growBox/assets/hoses.jpg)](hoses.jpg)
+[![lightsOn](./growBox/assets/lightsOn.jpg)](lightsOn.jpg)
+[![output](./growBox/assets/output.jpg)](output.jpg)
+[![waterRunning](./growBox/assets/waterRunning.jpg)](waterRunning.jpg)
