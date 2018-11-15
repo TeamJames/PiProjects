@@ -27,8 +27,24 @@ After cloning the repo, type `npm i` to install all of the necessary dependencie
 
 ###  Pictures
 
+
+Setup:
 [![corner](./growBox/assets/corner.jpg)](corner.jpg)
+
+Water connections:
+A)  Plant/Grow Medium
+B)  Reservoir/pump
+C)  Input for A
+D)  Excess water in A drains back into B
+E)  Drain hose for changing reservoir
+
 [![hoses](./growBox/assets/hoses.jpg)](hoses.jpg)
+
+Inside of tent with lights on:
 [![lightsOn](./growBox/assets/lightsOn.jpg)](lightsOn.jpg)
+
+Console output:
 [![output](./growBox/assets/output.jpg)](output.jpg)
+
+Water running:
 [![waterRunning](./growBox/assets/waterRunning.jpg)](waterRunning.jpg)
