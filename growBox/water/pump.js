@@ -8,7 +8,7 @@ const pumpRelay = new Gpio(13, 'out');
 function waterStart(){
   console.log('Water Pump ON');
   pumpRelay.writeSync(1);
-  setTimeout(waterStop, 5000);
+  setTimeout(waterStop, 1000);
 };
 
 function waterStop(){
