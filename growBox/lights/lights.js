@@ -37,7 +37,7 @@ function checkLights(){
   if(currentTime.hours < 8){
     console.log('good morning');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
-    console.log)('lights are still off');
+    console.log('lights are still off');
     lightsOff();
   }
 };
