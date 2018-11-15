@@ -38,3 +38,13 @@ function lightTimer() {
 
 
 checkLights();
+
+const unexportOnClose = function(){
+    if(lights.readSync() === 0){
+      lights.writeSync(0);
+    }
+    lights.unexport();
+    console.log('growbox shut down');
+};
+
+process.on('SIGINT', unexportOnClose);
