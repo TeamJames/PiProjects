@@ -24,18 +24,20 @@ function lightsOff(){
 function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
-  if(currentTime.hours >= 12 && currentTime.minutes >= 35){
+  if(currentTime.hours >= 2 && currentTime.hours <= 12){
     // console.log('good morning');
     console.clear();
+    console.log('Welcome to the Pot Roaster 3000');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
-    console.log('it is now after 2:30 pm');
+    console.log('Roast should be done in time for football (~10AM)');
     lightsOn();
   };
-  if(currentTime.hours >= 12 && currentTime.minutes >= 40){
+  if(currentTime.hours >= 12){
     console.clear();
+    console.log('Welcome to the Pot Roaster 3000');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     // console.log('good night');
-    console.log('it is now after 2:40 pm');
+    console.log('Roast is still marinating');
     // lightsOff();
   };
   // if(currentTime.hours < 8){
@@ -55,7 +57,7 @@ function closeLights(){
   clearInterval(lightTimer)
 };
 
-let lightTimer = setInterval(checkLights, 20000);
+let lightTimer = setInterval(checkLights, 15000);
 
 process.on('SIGINT', closeLights);
 
