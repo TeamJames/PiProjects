@@ -24,7 +24,7 @@ function lightsOff(){
 function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
-  if(currentTime.hours >= 12 && currentTime.minutes >= 17){
+  if(currentTime.hours >= 2 && currentTime.hours < 12){
     // console.log('good morning');
     console.clear();
     console.log('Welcome to the Pot Roaster 3000');
@@ -32,7 +32,7 @@ function checkLights(){
     console.log('Roast should be done in time for football (~10AM)');
     lightsOn();
   };
-  if(currentTime.hours >= 12 && currentTime.minutes < 17){
+  if(currentTime.hours >= 12 || currentTime.hours < 2){
     console.clear();
     console.log('Welcome to the Pot Roaster 3000');
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
