@@ -2,7 +2,7 @@
 
 const lights = require('./lights/lights.js');
 
-console.log('starting up growbox');
+console.log('Welcome to the Pot Roaster 3000');
 
 lights();
 // water();
