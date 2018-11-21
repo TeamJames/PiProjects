@@ -18,20 +18,20 @@ function lightsOn(){
 
 function lightsOff(){
   lightRelay.writeSync(0);
-  lightTestRelay.writeSync(0);
+  // lightTestRelay.writeSync(0);
 };
 
 function checkLights(){
   const time = require('./clock.js');
   let currentTime = time();
-  if(currentTime.hours >= 12 && currentTime.minutes >= 20){
+  if(currentTime.hours >= 12 && currentTime.minutes >= 35){
     // console.log('good morning');
     console.clear();
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     console.log('it is now after 2:30 pm');
     lightsOn();
   };
-  if(currentTime.hours >= 12 && currentTime.minutes >= 30){
+  if(currentTime.hours >= 12 && currentTime.minutes >= 40){
     console.clear();
     console.log('the current time is: ', currentTime.hours, ':', currentTime.minutes, ':', currentTime.seconds);
     // console.log('good night');
