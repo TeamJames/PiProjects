@@ -35,6 +35,7 @@ function checkLights(){
   if(currentTime.minutes < 10){
     normalMinutes = '0' + currentTime.minutes.toString();
   }
+  console.clear();
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
