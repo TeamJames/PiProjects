@@ -36,7 +36,7 @@ function checkLights(){
     normalMinutes = '0' + currentTime.minutes.toString();
   }
   console.clear();
-  console.log('lightRelay:   ', lightRelay.readSync());
+  
   if(lightRelay.readSync() === 0){
     console.log('lights are off');
   } else {
@@ -55,7 +55,7 @@ function checkLights(){
     lightsOff();
   };
   if(currentTime.hours < startTime){
-    console.clear();
+    // console.clear();
     console.log('good morning');
     console.log('lights are still off');
   }
