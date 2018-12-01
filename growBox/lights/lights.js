@@ -37,6 +37,11 @@ function checkLights(){
   }
   console.clear();
   console.log('lightRelay:   ', lightRelay.readSync());
+  if(lightRelay.readSync() === 0){
+    console.log('lights are off');
+  } else {
+    console.log('lights are on');
+  }
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
