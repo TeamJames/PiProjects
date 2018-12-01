@@ -42,21 +42,24 @@ function checkLights(){
   } else {
     console.log('lights are on');
   }
+  if(currentTime.hours < 12){
+    console.log('good morning');
+  } else if (currentTime.hours > 12 && currentTime.hours < 18) {
+    console.log('good afternoon');
+  } else {
+    console.log('good evening');
+  }
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
     console.clear();
-    console.log('good morning');
     lightsOn();
   };
   if(currentTime.hours >= stopTime && currentTime.seconds === 0){
     console.clear();
-    console.log('good night');
     lightsOff();
   };
   if(currentTime.hours < startTime){
-    // console.clear();
-    console.log('good morning');
     console.log('lights are still off');
   }
 };
