@@ -2,8 +2,6 @@
 
 const lights = require('./lights/lights.js');
 
-console.log('Welcome to the Pot Roaster 3000');
-
 lights();
 // water();
 // const Gpio = require('onoff').Gpio;
