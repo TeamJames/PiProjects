@@ -24,6 +24,7 @@ function lightsOff(){
 };
 
 function checkLights(){
+  console.clear();
   const time = require('./clock.js');
   let currentTime = time();
   let startTime = 7;
@@ -40,7 +41,6 @@ function checkLights(){
   if(currentTime.seconds < 10){
     normalSeconds = '0' + currentTime.seconds.toString();
   };
-  console.clear();
   
   if(currentTime.hours < 12){
     console.log('good morning');
@@ -52,11 +52,9 @@ function checkLights(){
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', normalSeconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
-    console.clear();
     lightsOn();
   };
   if(currentTime.hours >= stopTime && currentTime.seconds === 0){
-    console.clear();
     lightsOff();
   };
   if(currentTime.hours < startTime){
