@@ -51,6 +51,11 @@ function checkLights(){
   }
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', normalSeconds);
 
+  if(lightRelay.readSync() === 0){
+    console.log('lights are off');
+  } else {
+    console.log('lights are on');
+  }
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
     lightsOn();
   };
@@ -61,12 +66,6 @@ function checkLights(){
     console.log('lights are still off');
   }
 };
-
-if(lightRelay.readSync() === 0){
-    console.log('lights are off');
-  } else {
-    console.log('lights are on');
-  }
 
 
 function closeLights(){
