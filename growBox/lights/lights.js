@@ -1,5 +1,6 @@
 'use strict';
 
+
 const Gpio = require('onoff').Gpio;
 
 let lightRelay = new Gpio(22, 'out');
@@ -35,13 +36,12 @@ function checkLights(){
   if(currentTime.minutes < 10){
     normalMinutes = '0' + currentTime.minutes.toString();
   }
+  let normalSeconds = currentTime.seconds;
+  if(currentTime.seconds < 10){
+    normalSeconds = '0' + currentTime.seconds.toString();
+  };
   console.clear();
   
-  if(lightRelay.readSync() === 0){
-    console.log('lights are off');
-  } else {
-    console.log('lights are on');
-  }
   if(currentTime.hours < 12){
     console.log('good morning');
   } else if (currentTime.hours > 12 && currentTime.hours < 18) {
@@ -49,7 +49,7 @@ function checkLights(){
   } else {
     console.log('good evening');
   }
-  console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
+  console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', normalSeconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
     console.clear();
@@ -63,6 +63,13 @@ function checkLights(){
     console.log('lights are still off');
   }
 };
+
+if(lightRelay.readSync() === 0){
+    console.log('lights are off');
+  } else {
+    console.log('lights are on');
+  }
+
 
 function closeLights(){
   console.log('shutting down');
