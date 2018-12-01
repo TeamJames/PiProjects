@@ -27,35 +27,29 @@ function checkLights(){
   let currentTime = time();
   let startTime = 7;
   let stopTime = 23;
+  let civilianHours = currentTime.hours;
+  if(currentTime.hours > 12){
+    civilianHours -= 12;
+  }
+  let normalMinutes = currentTime.minutes;
+  if(currentTime.minutes < 10){
+    normalMinutes = '0' + currentTime.minutes.toString();
+  }
+  console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
     console.clear();
     console.log('good morning');
-    let civilianHours = currentTime.hours;
-    if(currentTime.hours > 12){
-      civilianHours -= 12;
-    }
-    console.log('the current time is: ', civilianHours, ':', currentTime.minutes, ':', currentTime.seconds);
     lightsOn();
   };
   if(currentTime.hours >= stopTime && currentTime.seconds === 0){
     console.clear();
     console.log('good night');
-    let civilianHours = currentTime.hours;
-    if(currentTime.hours > 12){
-      civilianHours -= 12;
-    }
-    console.log('the current time is: ', civilianHours, ':', currentTime.minutes, ':', currentTime.seconds);
     lightsOff();
   };
   if(currentTime.hours < startTime){
     console.clear();
     console.log('good morning');
-    let civilianHours = currentTime.hours;
-    if(currentTime.hours > 12){
-      civilianHours -= 12;
-    }
-    console.log('the current time is: ', civilianHours, ':', currentTime.minutes, ':', currentTime.seconds);
     console.log('lights are still off');
   }
 };
