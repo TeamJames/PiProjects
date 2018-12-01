@@ -36,6 +36,7 @@ function checkLights(){
     normalMinutes = '0' + currentTime.minutes.toString();
   }
   console.clear();
+  console.log('lightRelay:   ', lightRelay.readSync());
   console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', currentTime.seconds);
 
   if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
