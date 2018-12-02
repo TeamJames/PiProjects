@@ -41,7 +41,7 @@ function runShit() {
     let currentTime = time();
     let startTime = 7;
     let stopTime = 23;
-    let waterTime = 31;
+    let waterTime = 30;
     let normalHours = currentTime.hours;
 
     //  normalize time for display
