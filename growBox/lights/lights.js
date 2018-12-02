@@ -4,23 +4,21 @@
 const Gpio = require('onoff').Gpio;
 
 let lightRelay = new Gpio(22, 'out');
-let lightTestRelay = new Gpio(16, 'out');
+let lightIndicatorLight = new Gpio(16, 'out');
 
 lightRelay.writeSync(0);
-lightTestRelay.writeSync(0);
+lightIndicatorLight.writeSync(0);
 
 function lights(){
 
 function lightsOn(){
   lightRelay.writeSync(1);
-  lightTestRelay.writeSync(1);
-  console.log('lights are on');
+  lightIndicatorLight.writeSync(1);
 };
 
 function lightsOff(){
   lightRelay.writeSync(0);
-  lightTestRelay.writeSync(0);
-  console.log('lights are off');
+  lightIndicatorLight.writeSync(0);
 };
 
 function checkLights(){
@@ -29,9 +27,9 @@ function checkLights(){
   let currentTime = time();
   let startTime = 7;
   let stopTime = 23;
-  let civilianHours = currentTime.hours;
+  let normalHours = currentTime.hours;
   if(currentTime.hours > 12){
-    civilianHours -= 12;
+    normalHours -= 12;
   }
   let normalMinutes = currentTime.minutes;
   if(currentTime.minutes < 10){
@@ -49,7 +47,7 @@ function checkLights(){
   } else {
     console.log('good evening');
   }
-  console.log('the current time is: ', civilianHours, ':', normalMinutes, ':', normalSeconds);
+  console.log('the current time is: ', normalHours, ':', normalMinutes, ':', normalSeconds);
 
   if(lightRelay.readSync() === 0){
     console.log('lights are off');
@@ -71,9 +69,9 @@ function checkLights(){
 function closeLights(){
   console.log('shutting down');
   lightRelay.writeSync(0);
-  lightTestRelay.writeSync(0);
+  lightIndicatorLight.writeSync(0);
   lightRelay.unexport();
-  lightTestRelay.unexport();
+  lightIndicatorLight.unexport();
   clearInterval(lightTimer)
 };
 
