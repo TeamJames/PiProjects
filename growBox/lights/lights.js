@@ -13,110 +13,111 @@ pumpIndicatorLight.writeSync(0);
 lightRelay.writeSync(0);
 lightIndicatorLight.writeSync(0);
 
-function runShit(){
+function runShit() {
 
-function lightsOn(){
-  lightRelay.writeSync(1);
-  lightIndicatorLight.writeSync(1);
-};
-
-function lightsOff(){
-  lightRelay.writeSync(0);
-  lightIndicatorLight.writeSync(0);
-};
-
-function pumpOn(){
-  runPumps();
-  let pumpTimer = setTimeout(pumpOff, 60000);
-};
-
-function runPumps(){
-  pumpRelay.writeSync(1);
-  pumpIndicatorLight.writeSync(1);
-};
-
-function pumpOff(){
-  pumpRelay.writeSync(0);
-  pumpIndicatorLight.writeSync(0);
-  console.log('water pump off');
-};
-
-function checkLights(){
-  console.clear();
-  const time = require('./clock.js');
-  let currentTime = time();
-  let startTime = 7;
-  let stopTime = 23;
-  let waterTime = 5;
-  let normalHours = currentTime.hours;
-
-  //  normalize time for display
-  if(currentTime.hours > 12){
-    normalHours -= 12;
-  }
-  let normalMinutes = currentTime.minutes;
-  if(currentTime.minutes < 10){
-    normalMinutes = '0' + currentTime.minutes.toString();
-  }
-  let normalSeconds = currentTime.seconds;
-  if(currentTime.seconds < 10){
-    normalSeconds = '0' + currentTime.seconds.toString();
+  function lightsOn() {
+    lightRelay.writeSync(1);
+    lightIndicatorLight.writeSync(1);
   };
-  
 
-  //  light timer
-  if(currentTime.hours < 12){
-    console.log('good morning');
-  } else if (currentTime.hours > 12 && currentTime.hours < 18) {
-    console.log('good afternoon');
-  } else {
-    console.log('good evening');
-  }
-  console.log('the current time is: ', normalHours, ':', normalMinutes, ':', normalSeconds);
-
-  if(lightRelay.readSync() === 0){
-    console.log('lights are off');
-  } else {
-    console.log('lights are on');
-  }
-  if(currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime){
-    lightsOn();
+  function lightsOff() {
+    lightRelay.writeSync(0);
+    lightIndicatorLight.writeSync(0);
   };
-  if(currentTime.hours >= stopTime && currentTime.seconds === 0){
+
+  function pumpOn() {
+    runPumps();
+    let pumpTimer = setTimeout(pumpOff, 60000);
+  };
+
+  function runPumps() {
+    pumpRelay.writeSync(1);
+    pumpIndicatorLight.writeSync(1);
+  };
+
+  function pumpOff() {
+    pumpRelay.writeSync(0);
+    pumpIndicatorLight.writeSync(0);
+    // console.log('water pump off');
+  };
+
+  function checkLights() {
+    console.clear();
+    const time = require('./clock.js');
+    let currentTime = time();
+    let startTime = 7;
+    let stopTime = 23;
+    let waterTime = 31;
+    let normalHours = currentTime.hours;
+
+    //  normalize time for display
+    if (currentTime.hours > 12) {
+      normalHours -= 12;
+    }
+    let normalMinutes = currentTime.minutes;
+    if (currentTime.minutes < 10) {
+      normalMinutes = '0' + currentTime.minutes.toString();
+    }
+    let normalSeconds = currentTime.seconds;
+    if (currentTime.seconds < 10) {
+      normalSeconds = '0' + currentTime.seconds.toString();
+    };
+
+
+    //  light timer
+    if (currentTime.hours < 12) {
+      console.log('good morning');
+    } else if (currentTime.hours > 12 && currentTime.hours < 18) {
+      console.log('good afternoon');
+    } else {
+      console.log('good evening');
+    }
+    console.log('the current time is: ', normalHours, ':', normalMinutes, ':', normalSeconds);
+
+    if (lightRelay.readSync() === 0) {
+      console.log('lights are off');
+    } else {
+      console.log('lights are on');
+    }
+    if (currentTime.hours >= startTime && currentTime.seconds === 0 && currentTime.hours < stopTime) {
+      lightsOn();
+    };
+    if (currentTime.hours >= stopTime && currentTime.seconds === 0) {
+      lightsOff();
+    };
+    if (currentTime.hours < startTime) {
+      console.log('lights are still off');
+    }
+
+
+    ///  pump timer
+
+    if (currentTime.minutes === waterTime) {
+      console.log('water pump running');
+      pumpOn();
+    } else {
+      console.log('water pump off');
+    };
+  };
+
+
+
+  function shutdown() {
+    console.log('shutting down');
+    
+    pumpOff();
     lightsOff();
+    pumpRelay.unexport();
+    pumpIndicatorLight.unexport();
+    lightRelay.unexport();
+    lightIndicatorLight.unexport();
+    clearInterval(lightTimer);
+    // clearTimeout(pumpOff);
   };
-  if(currentTime.hours < startTime){
-    console.log('lights are still off');
-  }
-  
 
-  ///  pump timer
+  let lightTimer = setInterval(checkLights, 1000);
 
-  if(currentTime.minutes === waterTime){
-    console.log('water pump running');
-    pumpOn();
-  } else {
-    console.log('water pump off');
-  };
-};
-
-
-
-function shutdown(){
-  console.log('shutting down');
-  pumpOff();
-  lightsOff();
-  pumpRelay.unexport();
-  pumpIndicatorLight.unexport();
-  lightRelay.unexport();
-  lightIndicatorLight.unexport();
-  clearInterval(lightTimer)
-  clearTimeout(pumpTimer);
-};
-
-let lightTimer = setInterval(checkLights, 1000);
-
-process.on('SIGINT', shutdown);
+  process.on('SIGINT', shutdown);
 
 };
 
