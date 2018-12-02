@@ -27,7 +27,7 @@ function lightsOff(){
 
 function pumpOn(){
   runPumps();
-  let pumpTimer = setTimeout(pumpOff, 30000);
+  let pumpTimer = setTimeout(pumpOff, 60000);
 };
 
 function runPumps(){
