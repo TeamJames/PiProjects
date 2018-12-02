@@ -26,16 +26,20 @@ function lightsOff(){
 };
 
 function pumpOn(){
+  runPumps();
+  let pumpTimer = setTimeout(pumpOff, 30000);
+};
+
+function runPumps(){
   pumpRelay.writeSync(1);
   pumpIndicatorLight.writeSync(1);
-  console.log('water pump running');
-}
+};
 
 function pumpOff(){
   pumpRelay.writeSync(0);
   pumpIndicatorLight.writeSync(0);
   console.log('water pump off');
-}
+};
 
 function checkLights(){
   console.clear();
@@ -89,8 +93,10 @@ function checkLights(){
   ///  pump timer
 
   if(currentTime.minutes === waterTime){
+    console.log('water pump running');
     pumpOn();
-    setTimeout(pumpOff, 30000);
+  } else {
+    console.log('water pump off');
   };
 };
 
@@ -105,9 +111,10 @@ function shutdown(){
   lightRelay.unexport();
   lightIndicatorLight.unexport();
   clearInterval(lightTimer)
+  clearTimeout(pumpTimer);
 };
 
-let lightTimer = setInterval(runShit, 1000);
+let lightTimer = setInterval(checkLights, 1000);
 
 process.on('SIGINT', shutdown);
 
