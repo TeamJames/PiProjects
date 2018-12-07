@@ -1,44 +1,39 @@
 'use strict';
+function manualPump() {
+    const Gpio = require('onoff').Gpio;
+    let drainButton = new Gpio(4, 'in', 'falling', {
+      debounceTimeout: 50
+    });
+    let drainPumpIndicatorLight = new Gpio(27, 'out');
+    let drainPumpRelay = new Gpio(XXX, 'out');
+    drainPumpRelay.writeSync(1);
+    drainButton.watch(function (err, value) {
+        if (err) {
+            return console.error('There was an error', err);
+        };
+        if (drainPumpIndicatorLight.readSync() === 0) {
+            //   pumpOn();
+            console.log('Running Drain Pump');
+            drainPumpIndicatorLight.writeSync(1);
+            drainPumpRelay.writeSync(0);
+        }
+        else {
+            console.log('Drain Pump Off');
+            drainPumpIndicatorLight.writeSync(0);
+            drainPumpRelay.writeSync(1);
+        }
+    });
 
-const Gpio = require('onoff').Gpio;
+  function unexportPump(){
+    drainButton.unexport();
+    drainPumpIndicatorLight.unexport();
+    drainPumpRelay.unexport();
+    console.log('Pump shut down');
+  };
 
-let pumpRelay = new Gpio(21, 'out');
-let pumpIndicatorLight = new Gpio(17, 'out');
+  process.on('SIGINT', unexportPump);
+};
 
-pumpRelay.writeSync(0);
-pumpIndicatorLight.writeSync(0);
 
-function pumpOn(){
-  pumpRelay.writeSync(1);
-  pumpIndicatorLight.writeSync(1);
-  console.log('water pump running');
-}
 
-function pumpOff(){
-  pumpRelay.writeSync(0);
-  pumpIndicatorLight.writeSync(0);
-  console.log('water pump off');
-}
-
-function water(){
-  const time = require('./clock.js');
-  let currentTime = time();
-  if(currentTime.minutes === 38){
-    setTimeout(pumpOn, 30000);
-  }
-  pumpOff();
-}
-
-let lightTimer = setInterval(water, 1000);
-
-function closePump(){
-  pumpOff();
-  pumpRelay.unexport();
-  pumpIndicatorLight.unexport();
-  clearTimeout(pumpOn);
-  clearInterval(water);
-}
-
-process.on('SIGINT', closePump);
-
-module.exports = water;
+module.exports = manualPump;
