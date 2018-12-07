@@ -7,11 +7,18 @@ let lightRelay = new Gpio(22, 'out');
 let lightIndicatorLight = new Gpio(16, 'out');
 let pumpRelay = new Gpio(21, 'out');
 let pumpIndicatorLight = new Gpio(17, 'out');
+let buttonUp = new Gpio(XXX, 'in', 'rising');
+let buttonDown = new Gpio(XXX, 'in', 'falling');
+let drainPumpIndicatorLight = new Gpio (XXX, 'out');
 
-pumpRelay.writeSync(0);
+
+
+pumpRelay.writeSync(1);
 pumpIndicatorLight.writeSync(0);
 lightRelay.writeSync(0);
 lightIndicatorLight.writeSync(0);
+drainPumpIndicatorLight.writeSync(0);
+
 
 function runShit() {
 
@@ -26,12 +33,12 @@ function runShit() {
   };
 
   function pumpOn() {
-    pumpRelay.writeSync(1);
+    pumpRelay.writeSync(0);
     pumpIndicatorLight.writeSync(1);
   };
 
   function pumpOff() {
-    pumpRelay.writeSync(0);
+    pumpRelay.writeSync(1);
     pumpIndicatorLight.writeSync(0);
   };
 
@@ -95,6 +102,27 @@ function runShit() {
     };
   };
 
+  ///   manual pump
+
+  buttonDown.watch(function(err, value){
+    if(err){
+        return console.error('There was an error', err);
+    };
+    console.log('Running Drain Pump');
+    drainPumpIndicatorLight.writeSync(1);
+    pumpOn();
+  });
+
+  buttonUp.watch(function(err, value){
+      if(err){
+          console.error('There was an error', err);
+          return;
+      };
+      console.log('Drain Pump Off');
+      drainPumpIndicatorLight.writeSync(0);
+      pumpOff();
+  });
+
 
   function shutdown() {
     console.log('shutting down');
@@ -105,6 +133,9 @@ function runShit() {
     pumpIndicatorLight.unexport();
     lightRelay.unexport();
     lightIndicatorLight.unexport();
+    drainPumpIndicatorLight.unexport();
+    buttonUp.unexport();
+    buttonDown.unexport();
     clearInterval(lightTimer);
   };
 
