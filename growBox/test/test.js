@@ -1,23 +1,10 @@
 'use strict';
 
-//  instead of requiring the Gpio, can I declare a variable as gpio.readsync()?
-
-const Gpio = require('onoff').Gpio;
-const pump = new Gpio(4, 'out');
-
-
-function runPump() {
-    pump.writeSync(1);
-    console.log('pump running');
+function drainPump(){
+    function logger(){
+        console.log('logging');
+    };
+    setInterval(logger, 1000);
 };
 
-// function closePump() {
-//     pump.writeSync(0);
-//     console.log('pump off');
-// };
-
-
-// process.on('SIGINT', closePump);
-
-
-runPump();
+module.exports = drainPump();
