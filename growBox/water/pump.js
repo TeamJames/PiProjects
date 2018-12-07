@@ -2,23 +2,43 @@
 
 const Gpio = require('onoff').Gpio;
 
-const pumpButton = new Gpio(19, 'in', 'rising');
-const pumpRelay = new Gpio(13, 'out');
+let pumpRelay = new Gpio(21, 'out');
+let pumpIndicatorLight = new Gpio(17, 'out');
 
-function waterStart(){
-  console.log('Water Pump ON');
+pumpRelay.writeSync(0);
+pumpIndicatorLight.writeSync(0);
+
+function pumpOn(){
   pumpRelay.writeSync(1);
-  setTimeout(waterStop, 1000);
-};
+  pumpIndicatorLight.writeSync(1);
+  console.log('water pump running');
+}
 
-function waterStop(){
-  console.log('Water Pump OFF');
+function pumpOff(){
   pumpRelay.writeSync(0);
-};
+  pumpIndicatorLight.writeSync(0);
+  console.log('water pump off');
+}
 
-pumpButton.watch(function(err){
-    if(err){
-        return console.error(err);
-    }
-    waterStart();
-});
+function water(){
+  const time = require('./clock.js');
+  let currentTime = time();
+  if(currentTime.minutes === 38){
+    setTimeout(pumpOn, 30000);
+  }
+  pumpOff();
+}
+
+let lightTimer = setInterval(water, 1000);
+
+function closePump(){
+  pumpOff();
+  pumpRelay.unexport();
+  pumpIndicatorLight.unexport();
+  clearTimeout(pumpOn);
+  clearInterval(water);
+}
+
+process.on('SIGINT', closePump);
+
+module.exports = water;
