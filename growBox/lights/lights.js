@@ -7,31 +7,18 @@ let lightRelay = new Gpio(22, 'out');
 let lightIndicatorLight = new Gpio(16, 'out');
 let pumpRelay = new Gpio(24, 'out');
 let pumpIndicatorLight = new Gpio(17, 'out');
-let drainButton = new Gpio(4, 'in', 'falling');
-let drainPumpIndicatorLight = new Gpio(27, 'out');
+// let drainButton = new Gpio(4, 'in', 'falling');
+// let drainPumpIndicatorLight = new Gpio(27, 'out');
 
 pumpRelay.writeSync(1);
 pumpIndicatorLight.writeSync(0);
 lightRelay.writeSync(0);
 lightIndicatorLight.writeSync(0);
-drainPumpIndicatorLight.writeSync(0);
+// drainPumpIndicatorLight.writeSync(0);
 
 
 function runShit() {
 
-  drainButton.watch(function (err, value) {
-    if (err) {
-      return console.error('There was an error', err);
-    };
-    if (pumpIndicatorLight.readSync() === 0) {
-      //   pumpOn();
-      return console.log('Running Drain Pump');
-      drainPumpIndicatorLight.writeSync(1);
-    }
-    else {
-      drainPumpIndicatorLight.writeSync(0);
-    }
-  });
 
   function lightsOn() {
     lightRelay.writeSync(1);
@@ -127,8 +114,8 @@ function runShit() {
     pumpIndicatorLight.unexport();
     lightRelay.unexport();
     lightIndicatorLight.unexport();
-    drainPumpIndicatorLight.unexport();
-    drainButton.unexport();
+    // drainPumpIndicatorLight.unexport();
+    // drainButton.unexport();
     clearInterval(lightTimer);
   };
 
