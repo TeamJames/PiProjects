@@ -2,10 +2,10 @@
 function manualPump() {
     const Gpio = require('onoff').Gpio;
     let drainButton = new Gpio(4, 'in', 'falling', {
-      debounceTimeout: 50
+      debounceTimeout: 75
     });
     let drainPumpIndicatorLight = new Gpio(27, 'out');
-    let drainPumpRelay = new Gpio(XXX, 'out');
+    let drainPumpRelay = new Gpio(24, 'out');
     drainPumpRelay.writeSync(1);
     drainButton.watch(function (err, value) {
         if (err) {

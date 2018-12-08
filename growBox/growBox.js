@@ -1,8 +1,9 @@
 'use strict';
 
 const lights = require('./lights/lights.js');
-const manualPump = require('./test/test.js');
+const manualPump = require('./water/pump.js');
 
 
-manualPump();
+
 lights();
+manualPump();
