@@ -1,35 +1,26 @@
 'use strict';
+function tester() {
+    const Gpio = require('onoff').Gpio;
+    let drainButton = new Gpio(4, 'in', 'falling');
+    let drainPumpIndicatorLight = new Gpio(27, 'out');
 
-//  instead of requiring the Gpio, can I declare a variable as gpio.readsync()?
+    drainButton.watch(function (err, value) {
+        if (err) {
+            return console.error('There was an error', err);
+        };
+        if (drainPumpIndicatorLight.readSync() === 0) {
+            //   pumpOn();
+            console.log('Running Drain Pump');
+            drainPumpIndicatorLight.writeSync(1);
+        }
+        else {
+            console.log('Drain Pump Off');
+            drainPumpIndicatorLight.writeSync(0);
+        }
+    });
 
-// const Gpio = require('onoff').Gpio;
-// const waterPumpLED = new Gpio(20, 'out');
-
-// module.exports = {
-//     testy() {
-//         return console.log('testy');
-//     },
-
-//     waterStop() {
-//         console.log('water pump off');
-//         thirstyPlants.writeSync(0);
-//         console.log('plants are well hydrated');
-//         waterPumpLED.writeSync(0);
-//         reservoir += 1;
-//         if (reservoir === 10) {
-//             return drainWaste();
-//         };
-//         status();
-//     },
-//     waterStart() {
-//         console.log('water pump on');
-//         waterPumpLED.writeSync(1);
-//         setTimeout(this.waterStop, 2000);
-//     }
-// };
+};
 
 
-let bill = 5;
-let ted = bill.toString();
-console.log(ted);
-console.log('0' + ted);
+
+module.exports = tester;

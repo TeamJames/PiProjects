@@ -4,16 +4,21 @@
 const Gpio = require('onoff').Gpio;
 
 let lightRelay = new Gpio(22, 'out');
-let lightIndicatorLight = new Gpio(16, 'out');
-let pumpRelay = new Gpio(21, 'out');
-let pumpIndicatorLight = new Gpio(17, 'out');
+let lightIndicatorLight = new Gpio(13, 'out');
+// let pumpRelay = new Gpio(24, 'out');
+// let pumpIndicatorLight = new Gpio(17, 'out');
+// let drainButton = new Gpio(4, 'in', 'falling');
+// let drainPumpIndicatorLight = new Gpio(27, 'out');
 
-pumpRelay.writeSync(0);
-pumpIndicatorLight.writeSync(0);
+// pumpRelay.writeSync(1);
+// pumpIndicatorLight.writeSync(0);
 lightRelay.writeSync(0);
 lightIndicatorLight.writeSync(0);
+// drainPumpIndicatorLight.writeSync(0);
+
 
 function runShit() {
+
 
   function lightsOn() {
     lightRelay.writeSync(1);
@@ -25,15 +30,15 @@ function runShit() {
     lightIndicatorLight.writeSync(0);
   };
 
-  function pumpOn() {
-    pumpRelay.writeSync(1);
-    pumpIndicatorLight.writeSync(1);
-  };
+  // function pumpOn() {
+  //   pumpRelay.writeSync(0);
+  //   pumpIndicatorLight.writeSync(1);
+  // };
 
-  function pumpOff() {
-    pumpRelay.writeSync(0);
-    pumpIndicatorLight.writeSync(0);
-  };
+  // function pumpOff() {
+  //   pumpRelay.writeSync(1);
+  //   pumpIndicatorLight.writeSync(0);
+  // };
 
   function checkLights() {
     console.clear();
@@ -41,7 +46,7 @@ function runShit() {
     let currentTime = time();
     let startTime = 7;
     let stopTime = 23;
-    let waterTime = 30;
+    let waterTime = 48;
     let normalHours = currentTime.hours;
 
     //  normalize time for display
@@ -86,25 +91,29 @@ function runShit() {
 
     ///  pump timer
 
-    if (currentTime.minutes === waterTime && currentTime.seconds <= 30) {
-      console.log('water pump running');
-      pumpOn();
-    } else {
-      console.log('water pump off');
-      pumpOff();
-    };
+  //   if (currentTime.minutes === 61) {
+  //     console.log('water pump running');
+  //     pumpOn();
+  //   } else {
+  //     console.log('water pump off');
+  //     pumpOff();
+  //   };
   };
+
+
 
 
   function shutdown() {
     console.log('shutting down');
-    
-    pumpOff();
+
+    // pumpOff();
     lightsOff();
-    pumpRelay.unexport();
-    pumpIndicatorLight.unexport();
+    // pumpRelay.unexport();
+    // pumpIndicatorLight.unexport();
     lightRelay.unexport();
     lightIndicatorLight.unexport();
+    // drainPumpIndicatorLight.unexport();
+    // drainButton.unexport();
     clearInterval(lightTimer);
   };
 
