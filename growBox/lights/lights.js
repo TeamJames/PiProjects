@@ -6,32 +6,46 @@ const Gpio = require('onoff').Gpio;
 let lightRelay = new Gpio(22, 'out');
 // let lightIndicatorLight = new Gpio(13, 'out');
 // let pumpRelay = new Gpio(24, 'out');
-let pumpIndicatorLight = new Gpio(15, 'out');
-let drainButton = new Gpio(17, 'in', 'falling');
-// let drainPumpIndicatorLight = new Gpio(27, 'out');
-
-// pumpRelay.writeSync(1);
-pumpIndicatorLight.writeSync(0);
+let waterPump = new Gpio(15, 'out');
+let drainPump = new Gpio(12, 'out');
+let pumpButton = new Gpio(17, 'in', 'falling');
+let drainButton = new Gpio(7, 'in', 'falling');
+waterPump.writeSync(1);
+drainPump.writeSync(1);
 lightRelay.writeSync(0);
 // lightIndicatorLight.writeSync(0);
 // drainPumpIndicatorLight.writeSync(0);
 
 
 function runShit() {
-    drainButton.watch(function (err, value){
+    pumpButton.watch(function (err, value){
       if (err) {
         console.log(err);
         return;
       };
-      if (pumpIndicatorLight.readSync() === 1){
+      if (waterPump.readSync() === 0){
         console.log('pumpoff');
         return pumpOff();        
       };
-      if(pumpIndicatorLight.readSync() === 0){
+      if(waterPump.readSync() === 1){
         console.log('pumpon');
         return pumpOn();
       };
 
+    });
+    drainButton.watch(function (err, value){
+      if (err) {
+        console.log(err);
+        return;
+        if(drainPump.readSync() === 0){
+          console.log('drain off');
+          return drainOff();
+        };
+        if(drainPump.readSync() === 1){
+          console.log('drain on');
+          return drainOn();
+        };
+      };
     });
 
   function lightsOn() {
@@ -45,13 +59,19 @@ function runShit() {
   };
 
   function pumpOn() {
-    // pumpRelay.writeSync(0);
-    pumpIndicatorLight.writeSync(1);
+    waterPump.writeSync(0);
   };
 
   function pumpOff() {
-    // pumpRelay.writeSync(1);
-    pumpIndicatorLight.writeSync(0);
+    waterPump.writeSync(1);
+  };
+
+  function drainOn() {
+    drainPump.writeSync(0);
+  };
+  
+  function drainOff() {
+    drainPump.writeSync(1);
   };
 
   function checkLights() {
@@ -127,7 +147,7 @@ function runShit() {
     lightRelay.unexport();
     // lightIndicatorLight.unexport();
     // drainPumpIndicatorLight.unexport();
-    drainButton.unexport();
+    pumpButton.unexport();
     clearInterval(lightTimer);
   };
 
