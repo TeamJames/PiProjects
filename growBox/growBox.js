@@ -6,4 +6,4 @@ const manualPump = require('./water/pump.js');
 
 
 lights();
-manualPump();
+// manualPump();

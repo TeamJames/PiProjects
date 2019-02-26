@@ -37,15 +37,17 @@ function runShit() {
       if (err) {
         console.log(err);
         return;
-        if(drainPump.readSync() === 0){
+      };
+        
+      if(drainPump.readSync() === 0){
           console.log('drain off');
           return drainOff();
         };
-        if(drainPump.readSync() === 1){
+        
+      if(drainPump.readSync() === 1){
           console.log('drain on');
           return drainOn();
         };
-      };
     });
 
   function lightsOn() {
@@ -140,14 +142,16 @@ function runShit() {
   function shutdown() {
     console.log('shutting down');
 
-    pumpOff();
+    // pumpOff();
     lightsOff();
-    // pumpRelay.unexport();
-    pumpIndicatorLight.unexport();
+    waterPump.unexport();
+    drainPump.unexport();
+    // pumpIndicatorLight.unexport();
     lightRelay.unexport();
     // lightIndicatorLight.unexport();
     // drainPumpIndicatorLight.unexport();
     pumpButton.unexport();
+    drainButton.unexport();
     clearInterval(lightTimer);
   };
 
