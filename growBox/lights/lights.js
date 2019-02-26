@@ -6,7 +6,7 @@ const Gpio = require('onoff').Gpio;
 let lightRelay = new Gpio(22, 'out');
 // let lightIndicatorLight = new Gpio(13, 'out');
 // let pumpRelay = new Gpio(24, 'out');
-let pumpIndicatorLight = new Gpio(20, 'out');
+let pumpIndicatorLight = new Gpio(15, 'out');
 let drainButton = new Gpio(17, 'in', 'falling');
 // let drainPumpIndicatorLight = new Gpio(27, 'out');
 
