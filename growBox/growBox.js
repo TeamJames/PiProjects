@@ -1,7 +1,7 @@
 'use strict';
 
 const Gpio = require('onoff').Gpio;
-// let lightRelay = new Gpio(22, 'out');
+let lightRelay = new Gpio(22, 'out');
 
 function go(){
 
@@ -105,6 +105,7 @@ function go(){
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     if(state.vegStatus){
+      lightRelay.writeSync(1);
       console.log('Veg Room lights are on');
     }else{
       console.log('Flower Room lights are off');
@@ -126,7 +127,8 @@ function go(){
   function shutdown() {
     console.log('shutting down');
     clearInterval(timeChecker);
-    // lightRelay.unexport();
+    lightRelay.writeSync(1);
+    lightRelay.unexport();
   };
 
 
