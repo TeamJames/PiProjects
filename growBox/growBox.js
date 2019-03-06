@@ -56,6 +56,16 @@ function go(){
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
+
+  pumpButton.watch(function (err, value){
+      if (err) {
+        return console.log(err);
+      };
+      if (waterPumpStatus){
+        return console.log('hey looks like the water pump is on');
+      } else {
+        return console.log('definitely looks like the pump is off');
+      };
   
   function checkTime(){
     const time = require('./lights/clock.js');
