@@ -142,8 +142,8 @@ function go() {
           console.log('turning on water pump');
           state.waterPumpStatus = true;
         };
-      };
-    });
+      });
+  };
 
 
     console.clear();
