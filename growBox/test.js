@@ -12,9 +12,7 @@ let flowerRoomRelay = new Gpio(22, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling');
 // let drainButton = new Gpio(XXXXXX, 'in', 'falling');
 
-
-function go() {
-
+function go(){
   let state = {
     vegStartTime: 5,
     vegStopTime: 23,
@@ -23,6 +21,7 @@ function go() {
     waterPumpDuration: 10,
     drainPumpDuration: 6,
     greeting: '',
+    testGreeting: 'this is a test',
     normalHours: 0,
     normalMinutes: 0,
     normalSeconds: 0,
@@ -57,17 +56,7 @@ function go() {
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
 
-  // pumpButton.watch(function (err, value) {
-  //   if (err) {
-  //     return console.log(err);
-  //   };
-  //   if (waterPumpStatus) {
-  //     return console.log('hey looks like the water pump is on');
-  //   } else {
-  //     return console.log('definitely looks like the pump is off');
-  //   };
-
-  function checkTime() {
+  function checkTime(){
     const time = require('./lights/clock.js');
     let currentTime = time();
 
@@ -84,6 +73,7 @@ function go() {
     if (currentTime.seconds < 10) {
       state.normalSeconds = '0' + currentTime.seconds.toString();
     };
+
 
     //  set state to current numerical time
     state.hours = currentTime.hours;
@@ -131,23 +121,18 @@ function go() {
       state.drainPumpStatus = false;
     };
 
-    //  buttons
-    pumpButton.watch(function(err){
-      if(err){return console.log(err)};
-        if(state.waterPumpStatus === true){
-          console.log('turning off water pump');
-          state.waterPumpStatus = false;
-        };
-        if(state.waterPumpStatus === false){
-          console.log('turning on water pump');
-          state.waterPumpStatus = true;
-        };
-      });
+    status();
   };
+  pumpButton.watch(function(err){
+    state.testGreeting = 'button was pushed';
+  });
+    
+};
 
-
+function status(){
     console.clear();
     console.log(state.greeting);
+    console.log(state.testGreeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
@@ -175,19 +160,20 @@ function go() {
       // waterPumpRelay.writeSync(0);
       // waterPumpIndicator.writeSync(0);
     };
-  };
+    console.log(state.testGreeting);
+};
 
-  let timeChecker = setInterval(checkTime, 1000);
+let timeChecker = setInterval(checkTime, 1000);
 
-  function shutdown() {
+function shutdown() {
     console.log('shutting down');
     clearInterval(timeChecker);
     flowerRoomRelay.writeSync(1);
     flowerRoomRelay.unexport();
     pumpButton.unexport();
-  };
+};
 
 
-  process.on('SIGINT', shutdown);
+process.on(SIGINT, shutDown);
 
 go();
