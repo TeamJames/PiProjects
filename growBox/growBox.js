@@ -134,13 +134,14 @@ function go() {
     //  buttons
     pumpButton.watch(function(err){
       if(err){return console.log(err)};
-      if (state.waterPumpStatus = true){
-        console.log('turning off water pump');
-        state.waterPumpStatus = false;
-      } else {
-        console.log('turning on water pump');
-        state.waterPumpStatus = true
-        ;
+        if(state.waterPumpStatus === true){
+          console.log('turning off water pump');
+          state.waterPumpStatus = false;
+        };
+        if(state.waterPumpStatus === false){
+          console.log('turning on water pump');
+          state.waterPumpStatus = true;
+        };
       };
     });
 
