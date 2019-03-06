@@ -1,23 +1,26 @@
 'use strict';
 
+const Gpio = require('onoff').Gpio;
+// let lightRelay = new Gpio(22, 'out');
+
 function go(){
 
   let state = {
-    greeting: 'things',
+    vegStartTime: 5,
+    vegStopTime: 23,
+    flowerStartTime: 7,
+    flowerStopTime: 20,
     waterPumpDuration: 10,
     drainPumpDuration: 6,
+    greeting: '',
     normalHours: 0,
     normalMinutes: 0,
     normalSeconds: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
-    vegStartTime: 5,
-    vegStopTime: 23,
-    vegStatus: 'Go fuck yourself',
-    flowerStartTime: 7,
-    flowerStopTime: 19,
-    flowerStatus: 'Go fuck yourself',
+    vegStatus: false,
+    flowerStatus: false,
     waterPumpStartTime: {
       hours: 20,
       minutes: 17
@@ -77,16 +80,16 @@ function go(){
 
     //  veg room lights
     if(state.hours > state.vegStartTime && state.hours < state.vegStopTime){
-      state.vegStatus = 'Veg Room lights are on';
+      state.vegStatus = true;
     } else {
-      state.vegStatus = 'Veg Room lights are off';
+      state.vegStatus = false;
     };
 
     //  flower room lights
     if(state.hours > state.flowerStartTime && state.hours < state.flowerStopTime){
-      state.flowerStatus = 'Flower Room lights are on';
+      state.flowerStatus = true;
     } else {
-      state.flowerStatus = 'Flower Room lights are off';
+      state.flowerStatus = false;
     };
 
     //  flower room water pump
@@ -101,8 +104,16 @@ function go(){
     console.clear();
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
-    console.log('Veg Room Status: ', state.vegStatus);
-    console.log('Flower Room Status: ', state.flowerStatus);
+    if(state.vegStatus){
+      console.log('Veg Room lights are on');
+    }else{
+      console.log('Flower Room lights are off');
+    };
+    if(state.flowerStatus){
+      console.log('Flower Room lights are on');
+    } else {
+      console.log('Flower Room lights are off');
+    };
     if(state.waterPumpStatus === true){
       console.log('Water Pump is running');
     };
@@ -115,6 +126,7 @@ function go(){
   function shutdown() {
     console.log('shutting down');
     clearInterval(timeChecker);
+    // lightRelay.unexport();
   };
 
 
