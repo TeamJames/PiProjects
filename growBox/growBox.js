@@ -9,11 +9,11 @@ let flowerRoomRelay = new Gpio(22, 'out');
 // let waterPumpIndicator = new Gpio(XXXXXX, 'out');
 // let drainPumpRelay = new Gpio(XXXXXX, 'out');
 // let drainPumpIndicator = new Gpio(XXXXXX, 'out');
-// let pumpButton = new Gpio(XXXXXX, 'in', 'falling');
+let pumpButton = new Gpio(17, 'in', 'falling');
 // let drainButton = new Gpio(XXXXXX, 'in', 'falling');
 
 
-function go(){
+function go() {
 
   let state = {
     vegStartTime: 5,
@@ -49,7 +49,7 @@ function go(){
       minutes: 0
     }
   };
-  
+
   state.waterPumpStopTime.hours = state.waterPumpStartTime.hours;
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
@@ -57,17 +57,17 @@ function go(){
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
 
-  pumpButton.watch(function (err, value){
-      if (err) {
-        return console.log(err);
-      };
-      if (waterPumpStatus){
-        return console.log('hey looks like the water pump is on');
-      } else {
-        return console.log('definitely looks like the pump is off');
-      };
-  
-  function checkTime(){
+  // pumpButton.watch(function (err, value) {
+  //   if (err) {
+  //     return console.log(err);
+  //   };
+  //   if (waterPumpStatus) {
+  //     return console.log('hey looks like the water pump is on');
+  //   } else {
+  //     return console.log('definitely looks like the pump is off');
+  //   };
+
+  function checkTime() {
     const time = require('./lights/clock.js');
     let currentTime = time();
 
@@ -89,76 +89,89 @@ function go(){
     state.hours = currentTime.hours;
     state.minutes = currentTime.minutes;
     state.seconds = currentTime.seconds;
-    if(state.hours < 12){
+    if (state.hours < 12) {
       state.greeting = 'good morning';
     };
-    if(state.hours < 17 && state.hours > 11){
+    if (state.hours < 17 && state.hours > 11) {
       state.greeting = 'good afternoon';
     };
-    if(state.hours > 17){
+    if (state.hours > 17) {
       state.greeting = 'good evening';
     };
 
     //  veg room lights
-    if(state.hours > state.vegStartTime && state.hours < state.vegStopTime){
+    if (state.hours > state.vegStartTime && state.hours < state.vegStopTime) {
       state.vegStatus = true;
     } else {
       state.vegStatus = false;
     };
 
     //  flower room lights
-    if(state.hours > state.flowerStartTime && state.hours < state.flowerStopTime){
+    if (state.hours > state.flowerStartTime && state.hours < state.flowerStopTime) {
       state.flowerStatus = true;
     } else {
       state.flowerStatus = false;
     };
 
     //  flower room water pump
-    
-    if(state.waterPumpStartTime.hours === state.hours && state.waterPumpStartTime.minutes === state.minutes){
+
+    if (state.waterPumpStartTime.hours === state.hours && state.waterPumpStartTime.minutes === state.minutes) {
       state.waterPumpStatus = true;
     };
-    if(state.waterPumpStopTime.minutes === state.minutes){
+    if (state.waterPumpStopTime.minutes === state.minutes) {
       state.waterPumpStatus = false;
     };
 
     //  flower room drain pump
 
-    if(state.drainPumpStartTime.hours === state.hours && state.drainPumpStartTime.minutes === state.minutes){
+    if (state.drainPumpStartTime.hours === state.hours && state.drainPumpStartTime.minutes === state.minutes) {
       state.drainPumpStatus = true;
     };
-    if(state.drainPumpStopTime.minutes === state.minutes){
+    if (state.drainPumpStopTime.minutes === state.minutes) {
       state.drainPumpStatus = false;
     };
+
+    //  buttons
+    pumpButton.watch(function(err){
+      if(err){return console.log(err)};
+      if (state.waterPumpStatus = true){
+        console.log('turning off water pump');
+        state.waterPumpStatus = false;
+      } else {
+        console.log('turning on water pump');
+        state.waterPumpStatus = true;
+      };
+    });
+
 
     console.clear();
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
-    if(state.vegStatus){
-      vegRoomRelay.writeSync(1);
-      vegRoomIndicator.writeSync(1);
+    if (state.vegStatus) {
+      // vegRoomRelay.writeSync(1);
+      // vegRoomIndicator.writeSync(1);
       console.log('Veg Room lights are on');
-    }else{
+    } else {
       console.log('Flower Room lights are off');
-      vegRoomRelay.writeSync(0);
-      vegRoomIndicator.writeSync(0);
+      // vegRoomRelay.writeSync(0);
+      // vegRoomIndicator.writeSync(0);
     };
-    if(state.flowerStatus){
-      flowerRoomRelay.writeSync(1);
-      flowerRoomIndicator.writeSync(1);
+    if (state.flowerStatus) {
+      // flowerRoomRelay.writeSync(1);
+      // flowerRoomIndicator.writeSync(1);
       console.log('Flower Room lights are on');
     } else {
-      flowerRoomRelay.writeSync(0);
-      flowerRoomIndicator.writeSync(0);
+      // flowerRoomRelay.writeSync(0);
+      // flowerRoomIndicator.writeSync(0);
       console.log('Flower Room lights are off');
     };
-    if(state.waterPumpStatus === true){
-      waterPumpRelay.writeSync(1);
-      waterPumpIndicator.writeSync(1);
+    if (state.waterPumpStatus === true) {
+      // waterPumpRelay.writeSync(1);
+      // waterPumpIndicator.writeSync(1);
       console.log('Water Pump is running');
-    }else{
-      waterPumpRelay.writeSync(0);
-      waterPumpIndicator.writeSync(0);
+    } else {
+      // waterPumpRelay.writeSync(0);
+      // waterPumpIndicator.writeSync(0);
     };
   };
 
