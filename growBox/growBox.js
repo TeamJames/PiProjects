@@ -1,7 +1,17 @@
 'use strict';
 
 const Gpio = require('onoff').Gpio;
-let lightRelay = new Gpio(22, 'out');
+let flowerRoomRelay = new Gpio(22, 'out');
+// let flowerRoomIndicator = new Gpio(XXXXXX, 'out');
+// let vegRoomRelay = new Gpio(XXXXXX, 'out');
+// let vegRoomIndicator = new Gpio(XXXXXX, 'out');
+// let waterPumpRelay = new Gpio(XXXXXX, 'out');
+// let waterPumpIndicator = new Gpio(XXXXXX, 'out');
+// let drainPumpRelay = new Gpio(XXXXXX, 'out');
+// let drainPumpIndicator = new Gpio(XXXXXX, 'out');
+// let pumpButton = new Gpio(XXXXXX, 'in', 'falling');
+// let drainButton = new Gpio(XXXXXX, 'in', 'falling');
+
 
 function go(){
 
@@ -46,6 +56,7 @@ function go(){
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
+  
   function checkTime(){
     const time = require('./lights/clock.js');
     let currentTime = time();
@@ -101,25 +112,44 @@ function go(){
       state.waterPumpStatus = false;
     };
 
+    //  flower room drain pump
+
+    if(state.drainPumpStartTime.hours === state.hours && state.drainPumpStartTime.minutes === state.minutes){
+      state.drainPumpStatus = true;
+    };
+    if(state.drainPumpStopTime.minutes === state.minutes){
+      state.drainPumpStatus = false;
+    };
+
     console.clear();
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     if(state.vegStatus){
-      lightRelay.writeSync(1);
+      vegRoomRelay.writeSync(1);
+      vegRoomIndicator.writeSync(1);
       console.log('Veg Room lights are on');
     }else{
       console.log('Flower Room lights are off');
+      vegRoomRelay.writeSync(0);
+      vegRoomIndicator.writeSync(0);
     };
     if(state.flowerStatus){
+      flowerRoomRelay.writeSync(1);
+      flowerRoomIndicator.writeSync(1);
       console.log('Flower Room lights are on');
     } else {
+      flowerRoomRelay.writeSync(0);
+      flowerRoomIndicator.writeSync(0);
       console.log('Flower Room lights are off');
     };
     if(state.waterPumpStatus === true){
+      waterPumpRelay.writeSync(1);
+      waterPumpIndicator.writeSync(1);
       console.log('Water Pump is running');
+    }else{
+      waterPumpRelay.writeSync(0);
+      waterPumpIndicator.writeSync(0);
     };
-    console.log('water pump start/stop times: ', state.waterPumpStartTime, state.waterPumpStopTime, '-=-=-=-');
-    console.log('drain pump start/stop times: ', state.drainPumpStartTime, state.drainPumpStopTime);
   };
 
   let timeChecker = setInterval(checkTime, 1000);
@@ -127,8 +157,8 @@ function go(){
   function shutdown() {
     console.log('shutting down');
     clearInterval(timeChecker);
-    lightRelay.writeSync(1);
-    lightRelay.unexport();
+    flowerRoomRelay.writeSync(1);
+    flowerRoomRelay.unexport();
   };
 
 
