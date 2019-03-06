@@ -139,7 +139,8 @@ function go() {
         state.waterPumpStatus = false;
       } else {
         console.log('turning on water pump');
-        state.waterPumpStatus = true;
+        state.waterPumpStatus = true
+        ;
       };
     });
 
