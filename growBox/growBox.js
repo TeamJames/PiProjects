@@ -169,6 +169,7 @@ function go(){
     clearInterval(timeChecker);
     flowerRoomRelay.writeSync(1);
     flowerRoomRelay.unexport();
+    pumpButton.unexport();
   };
 
 
