@@ -12,7 +12,7 @@ let flowerRoomRelay = new Gpio(22, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling');
 // let drainButton = new Gpio(XXXXXX, 'in', 'falling');
 
-function go(){
+function go() {
   let state = {
     vegStartTime: 5,
     vegStopTime: 23,
@@ -56,7 +56,7 @@ function go(){
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
 
-  function checkTime(){
+  function checkTime() {
     const time = require('./lights/clock.js');
     let currentTime = time();
 
@@ -123,13 +123,13 @@ function go(){
 
     status();
   };
-  pumpButton.watch(function(err){
+  pumpButton.watch(function (err) {
     state.testGreeting = 'button was pushed';
   });
-    
-};
 
-function status(){
+
+
+  function status() {
     console.clear();
     console.log(state.greeting);
     console.log(state.testGreeting);
@@ -161,19 +161,20 @@ function status(){
       // waterPumpIndicator.writeSync(0);
     };
     console.log(state.testGreeting);
-};
+  };
 
-let timeChecker = setInterval(checkTime, 1000);
+  let timeChecker = setInterval(checkTime, 1000);
 
-function shutdown() {
+  function shutDown() {
     console.log('shutting down');
     clearInterval(timeChecker);
     flowerRoomRelay.writeSync(1);
     flowerRoomRelay.unexport();
     pumpButton.unexport();
+  };
+
+  process.on('SIGINT', shutDown);
+
 };
-
-
-process.on(SIGINT, shutDown);
 
 go();
