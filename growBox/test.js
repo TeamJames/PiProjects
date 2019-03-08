@@ -174,7 +174,7 @@ function go() {
       if(err){return console.log(err);}
       if(state.drainPumpStatus === false){
         state.drainPumpStatus = true;
-        state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime;
+        state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
         state.drainPumpStopTime = state.minutes + state.drainPumpDuration;
 
         //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
@@ -230,16 +230,9 @@ function go() {
       drainPumpIndicator.writeSync(0);
       state.drainPumpMessage = 'Drain pump is off';
     };
-    // if(state.waterPumpMessage.length > 1){
-    //   console.log(state.waterPumpMessage);
-    // };
-    // if(state.drainPumpMessage.length > 1){
-    //   console.log(state.drainPumpMessage);
-    // };
+    
     console.log(state.waterPumpMessage);
     console.log(state.drainPumpMessage);
-
-    //  add conditional logic here to log these out only if they resolve truthy ^^
 
   };
 
