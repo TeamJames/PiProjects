@@ -22,13 +22,13 @@ function go() {
     vegStopTime: 23,
     flowerStartTime: {
       hours: 11,
-      minutes: 46
+      minutes: 57
     },
     flowerStopTime: {
       hours: 11,
-      minutes: 47
+      minutes: 58
     },
-    waterPumpDuration: 10,
+    waterPumpDuration: 1,
     drainPumpDuration: 6,
     greeting: '',
     waterPumpMessage: '',
@@ -111,7 +111,7 @@ function go() {
     };
 
     //  flower room lights
-    if (state.hours > state.flowerStartTime.hours && state.hours < state.flowerStopTime && state.minutes > state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes) {
+    if (state.hours >= state.flowerStartTime.hours && state.hours <= state.flowerStopTime.hours && state.minutes >= state.flowerStartTime.minutes && state.minutes <= state.flowerStopTime.minutes) {
       state.flowerStatus = true;
     } else {
       state.flowerStatus = false;
