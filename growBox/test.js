@@ -20,8 +20,14 @@ function go() {
   let state = {
     vegStartTime: 5,
     vegStopTime: 23,
-    flowerStartTime: 7,
-    flowerStopTime: 20,
+    flowerStartTime: {
+      hours: 11,
+      minutes: 46
+    },
+    flowerStopTime: {
+      hours: 11,
+      minutes: 47
+    },
     waterPumpDuration: 10,
     drainPumpDuration: 6,
     greeting: '',
@@ -105,7 +111,7 @@ function go() {
     };
 
     //  flower room lights
-    if (state.hours > state.flowerStartTime && state.hours < state.flowerStopTime) {
+    if ((state.hours > state.flowerStartTime.hours && state.hours < state.flowerStopTime) && (state.minutes > state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes)) {
       state.flowerStatus = true;
     } else {
       state.flowerStatus = false;
