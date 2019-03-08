@@ -32,8 +32,8 @@ function go() {
     vegStatus: false,
     flowerStatus: false,
     waterPumpStartTime: {
-      hours: 20,
-      minutes: 17
+      hours: 0,
+      minutes: 0
     },
     waterPumpStopTime: {
       hours: 0,
@@ -50,6 +50,8 @@ function go() {
     }
   };
 
+  state.waterPumpStartTime.hours = state.vegStartTime.hours;
+  state.waterPumpStartTime.minutes = state.vegStartTime.minutes;
   state.waterPumpStopTime.hours = state.waterPumpStartTime.hours;
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
@@ -132,17 +134,17 @@ function go() {
     };
 
     //  buttons
-    pumpButton.watch(function(err){
-      if(err){return console.log(err)};
-        if(state.waterPumpStatus === true){
-          console.log('turning off water pump');
-          state.waterPumpStatus = false;
-        };
-        if(state.waterPumpStatus === false){
-          console.log('turning on water pump');
-          state.waterPumpStatus = true;
-        };
-      });
+    // pumpButton.watch(function(err){
+    //   if(err){return console.log(err)};
+    //     if(state.waterPumpStatus === true){
+    //       console.log('turning off water pump');
+    //       state.waterPumpStatus = false;
+    //     };
+    //     if(state.waterPumpStatus === false){
+    //       console.log('turning on water pump');
+    //       state.waterPumpStatus = true;
+    //     };
+    //   });
   };
 
 

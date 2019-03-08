@@ -31,8 +31,8 @@ function go() {
     vegStatus: false,
     flowerStatus: false,
     waterPumpStartTime: {
-      hours: 20,
-      minutes: 17
+      hours: 0,
+      minutes: 0
     },
     waterPumpStopTime: {
       hours: 0,
@@ -49,6 +49,9 @@ function go() {
     }
   };
 
+
+  state.waterPumpStartTime.hours = state.flowerStartTime.hours;
+  state.waterPumpStartTime.minutes = state.flowerStartTime.minutes;
   state.waterPumpStopTime.hours = state.waterPumpStartTime.hours;
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
@@ -123,8 +126,11 @@ function go() {
 
     status();
   };
+
+  
   pumpButton.watch(function (err) {
     state.testGreeting = 'button was pushed';
+    state.waterPumpStatus = true;
   });
 
 
