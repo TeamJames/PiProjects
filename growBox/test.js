@@ -9,7 +9,7 @@ let waterPumpRelay = new Gpio(15, 'out');
 // let waterPumpIndicator = new Gpio(XXXXXX, 'out');
 // let drainPumpRelay = new Gpio(XXXXXX, 'out');
 // let drainPumpIndicator = new Gpio(XXXXXX, 'out');
-let pumpButton = new Gpio(17, 'in', 'falling');
+let pumpButton = new Gpio(17, 'in', 'both');
 // let drainButton = new Gpio(XXXXXX, 'in', 'falling');
 
 function go() {
