@@ -124,15 +124,16 @@ function go() {
       state.drainPumpStatus = false;
     };
 
+    pumpButton.watch(function (err) {
+      state.testGreeting = 'button was pushed';
+      state.waterPumpStatus = true;
+    });
+
     status();
   };
 
-  
-  pumpButton.watch(function (err) {
-    state.testGreeting = 'button was pushed';
-    state.waterPumpStatus = true;
-  });
 
+  
 
 
   function status() {
