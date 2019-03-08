@@ -26,7 +26,7 @@ function go() {
     drainPumpDuration: 6,
     greeting: '',
     waterPumpMessage: '',
-    testGreeting: 'this is a test',
+    testMessage: '',
     normalHours: 0,
     normalMinutes: 0,
     normalSeconds: 0,
@@ -136,7 +136,9 @@ function go() {
     pumpButton.watch(function (err) {
       if(state.waterPumpStatus === false){
         state.waterPumpStatus = true;
-        state.waterPumpMessage = 'Water pump is running';
+        state.waterPumpStopTime = (state.minutes + 1);
+        state.waterPumpMessage = 'Water pump is on at: ';
+        state.testMessage = toString('state.minutes: ', state.minutes, 'waterPumpStopTime minutes: ', state.waterPumpStopTime);
       } else {
         state.waterPumpStatus = false;
         state.waterPumpMessage = 'Water pump is off';
@@ -149,7 +151,7 @@ function go() {
   function status() {
     console.clear();
     console.log(state.greeting);
-    console.log(state.testGreeting);
+    console.log(state.testMessage);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
