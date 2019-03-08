@@ -6,7 +6,7 @@ let flowerRoomRelay = new Gpio(22, 'out');
 // let vegRoomRelay = new Gpio(XXXXXX, 'out');
 // let vegRoomIndicator = new Gpio(XXXXXX, 'out');
 let waterPumpRelay = new Gpio(15, 'out');
-// let waterPumpIndicator = new Gpio(XXXXXX, 'out');
+let waterPumpIndicator = new Gpio(21, 'out');
 // let drainPumpRelay = new Gpio(XXXXXX, 'out');
 // let drainPumpIndicator = new Gpio(XXXXXX, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling', {
@@ -178,12 +178,12 @@ function go() {
     };
     if (state.waterPumpStatus === true) {
       waterPumpRelay.writeSync(0);
-      // waterPumpIndicator.writeSync(1);
+      waterPumpIndicator.writeSync(1);
       state.waterPumpMessage = 'Water pump is running for ' + state.waterPumpDuration + ' minutes';
     } else {
       waterPumpRelay.writeSync(1);
       state.waterPumpMessage = 'Water pump is off';
-      // waterPumpIndicator.writeSync(0);
+      waterPumpIndicator.writeSync(0);
     };
     console.log(state.waterPumpMessage);
   };
@@ -197,6 +197,8 @@ function go() {
     flowerRoomRelay.unexport();
     waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
+    waterPumpIndicator.writeSync(0);
+    waterPumpIndicator.unexport();
     pumpButton.unexport();
   };
 
