@@ -23,11 +23,11 @@ function go() {
     vegStartTime: 5,
     vegStopTime: 23,
     flowerStartTime: {
-      hours: 14,
-      minutes: 30
+      hours: 16,
+      minutes: 0
     },
     flowerStopTime: {
-      hours: 14,
+      hours: 16,
       minutes: 45
     },
     waterPumpDuration: 10,
