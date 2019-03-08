@@ -137,8 +137,7 @@ function go() {
       if(state.waterPumpStatus === false){
         state.waterPumpStatus = true;
         state.waterPumpStopTime = (state.minutes + 1);
-        let testMessage = {...state.waterPumpStopTime};
-        state.testMessage = testMessage.toString();
+        state.testMessage = 'state.waterPumpStopTime' + state.waterPumpStopTime;
       } else {
         state.waterPumpStatus = false;
         state.waterPumpMessage = 'Water pump is off';
