@@ -21,12 +21,12 @@ function go() {
     vegStartTime: 5,
     vegStopTime: 23,
     flowerStartTime: {
-      hours: 11,
-      minutes: 57
+      hours: 12,
+      minutes: 05
     },
     flowerStopTime: {
-      hours: 11,
-      minutes: 58
+      hours: 12,
+      minutes: 07
     },
     waterPumpDuration: 1,
     drainPumpDuration: 6,
@@ -111,7 +111,7 @@ function go() {
     };
 
     //  flower room lights
-    if (state.hours >= state.flowerStartTime.hours && state.hours <= state.flowerStopTime.hours && state.minutes >= state.flowerStartTime.minutes && state.minutes <= state.flowerStopTime.minutes) {
+    if (state.hours >= state.flowerStartTime.hours && state.hours <= state.flowerStopTime.hours && state.minutes >= state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes) {
       state.flowerStatus = true;
     } else {
       state.flowerStatus = false;
@@ -179,9 +179,10 @@ function go() {
     if (state.waterPumpStatus === true) {
       waterPumpRelay.writeSync(0);
       // waterPumpIndicator.writeSync(1);
-      state.waterPumpMessage = 'Water pump is running';
+      state.waterPumpMessage = 'Water pump is running for ' + state.waterPumpDuration + ' minutes';
     } else {
       waterPumpRelay.writeSync(1);
+      state.waterPumpMessage = 'Water pump is off';
       // waterPumpIndicator.writeSync(0);
     };
     console.log(state.waterPumpMessage);
