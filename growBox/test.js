@@ -160,11 +160,11 @@ function go() {
       console.log('Flower Room lights are off');
     };
     if (state.waterPumpStatus === true) {
-      waterPumpRelay.writeSync(1);
+      waterPumpRelay.writeSync(0);
       // waterPumpIndicator.writeSync(1);
       console.log('Water Pump is running');
     } else {
-      waterPumpRelay.writeSync(0);
+      waterPumpRelay.writeSync(1);
       // waterPumpIndicator.writeSync(0);
     };
     console.log(state.testGreeting);
