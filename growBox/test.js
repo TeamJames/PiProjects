@@ -6,8 +6,8 @@ let flowerRoomRelay = new Gpio(22, 'out');
 // let vegRoomRelay = new Gpio(XXXXXX, 'out');
 // let vegRoomIndicator = new Gpio(XXXXXX, 'out');
 let waterPumpRelay = new Gpio(15, 'out');
-let waterPumpIndicator = new Gpio(21, 'out');
-// let drainPumpRelay = new Gpio(XXXXXX, 'out');
+let waterPumpIndicator = new Gpio(20, 'out');
+// let drainPumpRelay = new Gpio(21, 'out');
 // let drainPumpIndicator = new Gpio(XXXXXX, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling', {
   debounceTimeout: 25
