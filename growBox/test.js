@@ -126,8 +126,13 @@ function go() {
     };
 
     pumpButton.watch(function (err) {
-      state.testGreeting = 'button was pushed';
-      state.waterPumpStatus = true;
+      if(state.waterPumpStatus === false){
+        state.waterPumpStatus = true;
+        state.waterPumpMessage = 'Water pump is running';
+      } else {
+        state.waterPumpStatus = false;
+        state.waterPumpMessage = 'Water pump is off';
+      };
     });
 
     status();
