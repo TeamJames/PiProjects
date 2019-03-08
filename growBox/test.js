@@ -10,7 +10,7 @@ let waterPumpRelay = new Gpio(15, 'out');
 // let drainPumpRelay = new Gpio(XXXXXX, 'out');
 // let drainPumpIndicator = new Gpio(XXXXXX, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling', {
-  debounceTimeout: 75
+  debounceTimeout: 25
 });
 // let drainButton = new Gpio(XXXXXX, 'in', 'falling');
 
