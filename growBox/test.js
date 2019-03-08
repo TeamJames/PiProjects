@@ -30,7 +30,7 @@ function go() {
       hours: 12,
       minutes: 7
     },
-    waterPumpDuration: 1,
+    waterPumpDuration: 5,
     drainPumpDuration: 6,
     greeting: '',
     waterPumpMessage: '',
@@ -157,7 +157,6 @@ function go() {
         // state.testMessage = 'state.waterPumpStopTime' + state.waterPumpStopTime;
       } else {
         state.waterPumpStatus = false;
-        state.waterPumpMessage = 'Water pump is off';
       };
     });
 
@@ -174,7 +173,6 @@ function go() {
 
       } else {
         state.drainPumpStatus = false;
-        state.drainPumpMessage = 'Drain pump is off';
       };
     });
 
@@ -219,7 +217,7 @@ function go() {
     } else {
       drainPumpRelay.writeSync(1);
       drainPumpIndicator.writeSync(0);
-      state.drainPumpMessage = '';
+      state.drainPumpMessage = 'Drain pump is off';
     };
     console.log(state.waterPumpMessage);
     console.log(state.drainPumpMessage);
