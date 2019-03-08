@@ -235,11 +235,11 @@ function go() {
     flowerRoomRelay.unexport();
     waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
-    waterPumpIndicator.writeSync(0);
+    // waterPumpIndicator.writeSync(0);
     waterPumpIndicator.unexport();
     drainPumpRelay.writeSync(1);
     drainPumpRelay.unexport();
-    drainPumpIndicator.writeSync(0);
+    // drainPumpIndicator.writeSync(0);
     drainPumpIndicator.unexport();
     pumpButton.unexport();
   };
