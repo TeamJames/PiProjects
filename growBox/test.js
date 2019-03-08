@@ -165,7 +165,7 @@ function go() {
       if(state.drainPumpStatus === false){
         state.drainPumpStatus = true;
         state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime;
-        state.drainPumpStopTime = minutes + state.drainPumpDuration;
+        state.drainPumpStopTime = state.minutes + state.drainPumpDuration;
 
         //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
 
