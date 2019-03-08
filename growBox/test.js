@@ -23,14 +23,14 @@ function go() {
     vegStartTime: 5,
     vegStopTime: 23,
     flowerStartTime: {
-      hours: 12,
-      minutes: 5
+      hours: 14,
+      minutes: 30
     },
     flowerStopTime: {
-      hours: 12,
-      minutes: 7
+      hours: 14,
+      minutes: 45
     },
-    waterPumpDuration: 5,
+    waterPumpDuration: 8,
     drainPumpDuration: 6,
     greeting: '',
     waterPumpMessage: '',
@@ -175,7 +175,7 @@ function go() {
       if(state.drainPumpStatus === false){
         state.drainPumpStatus = true;
         state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
-        state.drainPumpStopTime = state.minutes + state.drainPumpDuration;
+        state.drainPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
 
         //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
 
