@@ -215,7 +215,8 @@ function go() {
     if (state.waterPumpStatus === true) {
       waterPumpRelay.writeSync(0);
       waterPumpIndicator.writeSync(1);
-      state.waterPumpMessage = 'Water pump is running for ' + state.waterPumpDuration + ' minutes';
+      let pumpTimeLeft = state.waterPumpStopTime.minutes - state.minutes;
+      state.waterPumpMessage = 'Water pump is running for ' + pumpTimeLeft + ' minutes';
     } else {
       waterPumpRelay.writeSync(1);
       state.waterPumpMessage = 'Water pump is off';
@@ -224,8 +225,8 @@ function go() {
     if(state.drainPumpStatus === true) {
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
-      let timeLeft = state.drainPumpStopTime.minutes - state.minutes;
-      state.drainPumpMessage = 'Drain pump is running for ' + timeLeft + ' minutes';
+      let drainTimeLeft = state.drainPumpStopTime.minutes - state.minutes;
+      state.drainPumpMessage = 'Drain pump is running for ' + drainTimeLeft + ' minutes';
     } else {
       drainPumpRelay.writeSync(1);
       drainPumpIndicator.writeSync(0);
