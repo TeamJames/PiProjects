@@ -12,7 +12,7 @@ let drainPumpIndicator = new Gpio(21, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling', {
   debounceTimeout: 25
 });
-// let drainButton = new Gpio(XXXXXX, 'in', 'falling');
+let drainButton = new Gpio(26, 'in', 'falling');
 
 
 
