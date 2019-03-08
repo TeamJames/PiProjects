@@ -21,6 +21,7 @@ function go() {
     waterPumpDuration: 10,
     drainPumpDuration: 6,
     greeting: '',
+    waterPumpMessage: '',
     testGreeting: 'this is a test',
     normalHours: 0,
     normalMinutes: 0,
@@ -160,14 +161,14 @@ function go() {
       console.log('Flower Room lights are off');
     };
     if (state.waterPumpStatus === true) {
-      waterPumpRelay.writeSync(0);
-      // waterPumpIndicator.writeSync(1);
-      console.log('Water Pump is running');
-    } else {
       waterPumpRelay.writeSync(1);
+      // waterPumpIndicator.writeSync(1);
+      state.waterPumpMessage = 'Water pump is running';
+    } else {
+      waterPumpRelay.writeSync(0);
       // waterPumpIndicator.writeSync(0);
     };
-    console.log(state.testGreeting);
+    console.log(state.waterPumpMessage);
   };
 
   let timeChecker = setInterval(checkTime, 1000);
@@ -177,7 +178,7 @@ function go() {
     clearInterval(timeChecker);
     flowerRoomRelay.writeSync(1);
     flowerRoomRelay.unexport();
-    waterPumpRelay.writeSync(0);
+    waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
     pumpButton.unexport();
   };
