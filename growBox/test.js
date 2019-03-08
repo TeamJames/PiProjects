@@ -111,7 +111,7 @@ function go() {
     };
 
     //  flower room lights
-    if ((state.hours > state.flowerStartTime.hours && state.hours < state.flowerStopTime) && (state.minutes > state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes)) {
+    if (state.hours > state.flowerStartTime.hours && state.hours < state.flowerStopTime && state.minutes > state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes) {
       state.flowerStatus = true;
     } else {
       state.flowerStatus = false;
@@ -168,11 +168,11 @@ function go() {
       // vegRoomIndicator.writeSync(0);
     };
     if (state.flowerStatus) {
-      // flowerRoomRelay.writeSync(1);
+      flowerRoomRelay.writeSync(1);
       // flowerRoomIndicator.writeSync(1);
       console.log('Flower Room lights are on');
     } else {
-      // flowerRoomRelay.writeSync(0);
+      flowerRoomRelay.writeSync(0);
       // flowerRoomIndicator.writeSync(0);
       console.log('Flower Room lights are off');
     };
@@ -192,7 +192,7 @@ function go() {
   function shutDown() {
     console.log('shutting down');
     clearInterval(timeChecker);
-    flowerRoomRelay.writeSync(1);
+    flowerRoomRelay.writeSync(0);
     flowerRoomRelay.unexport();
     waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
