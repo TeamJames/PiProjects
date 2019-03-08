@@ -12,7 +12,9 @@ let drainPumpIndicator = new Gpio(21, 'out');
 let pumpButton = new Gpio(17, 'in', 'falling', {
   debounceTimeout: 25
 });
-let drainButton = new Gpio(26, 'in', 'falling');
+let drainButton = new Gpio(26, 'in', 'falling', {
+  debounceTimeout: 25
+});
 
 
 
@@ -231,17 +233,18 @@ function go() {
   function shutDown() {
     console.log('shutting down');
     clearInterval(timeChecker);
-    // flowerRoomRelay.writeSync(0);
+    flowerRoomRelay.writeSync(0);
     flowerRoomRelay.unexport();
-    // waterPumpRelay.writeSync(1);
+    waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
-    // waterPumpIndicator.writeSync(0);
+    waterPumpIndicator.writeSync(0);
     waterPumpIndicator.unexport();
-    // drainPumpRelay.writeSync(1);
+    drainPumpRelay.writeSync(1);
     drainPumpRelay.unexport();
-    // drainPumpIndicator.writeSync(0);
+    drainPumpIndicator.writeSync(0);
     drainPumpIndicator.unexport();
     pumpButton.unexport();
+    drainButton.unexport();
   };
 
   process.on('SIGINT', shutDown);
