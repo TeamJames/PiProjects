@@ -224,7 +224,8 @@ function go() {
     if(state.drainPumpStatus === true) {
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
-      state.drainPumpMessage = 'Drain pump is running for ' + state.drainPumpDuration + ' minutes';
+      let timeLeft = state.drainPumpStopTime.minutes - state.minutes;
+      state.drainPumpMessage = 'Drain pump is running for ' + timeLeft + ' minutes';
     } else {
       drainPumpRelay.writeSync(1);
       drainPumpIndicator.writeSync(0);
