@@ -231,13 +231,13 @@ function go() {
   function shutDown() {
     console.log('shutting down');
     clearInterval(timeChecker);
-    flowerRoomRelay.writeSync(0);
+    // flowerRoomRelay.writeSync(0);
     flowerRoomRelay.unexport();
-    waterPumpRelay.writeSync(1);
+    // waterPumpRelay.writeSync(1);
     waterPumpRelay.unexport();
     // waterPumpIndicator.writeSync(0);
     waterPumpIndicator.unexport();
-    drainPumpRelay.writeSync(1);
+    // drainPumpRelay.writeSync(1);
     drainPumpRelay.unexport();
     // drainPumpIndicator.writeSync(0);
     drainPumpIndicator.unexport();
