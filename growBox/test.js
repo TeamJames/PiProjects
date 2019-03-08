@@ -64,6 +64,7 @@ function go() {
     }
   };
 
+//  set timers relative to each other
 
   state.waterPumpStartTime.hours = state.flowerStartTime.hours;
   state.waterPumpStartTime.minutes = state.flowerStartTime.minutes;
@@ -73,6 +74,9 @@ function go() {
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
+
+
+
 
   function checkTime() {
     const time = require('./lights/clock.js');
@@ -143,6 +147,11 @@ function go() {
     status();
   };
 
+
+
+//  Button Handlers
+
+
     pumpButton.watch(function (err) {
       if(err){return console.log(err);}
       if(state.waterPumpStatus === false){
@@ -176,6 +185,8 @@ function go() {
       };
     });
 
+
+//  Display status to console, adjust state of GPIO pins to match application state
 
 
   function status() {
@@ -219,8 +230,14 @@ function go() {
       drainPumpIndicator.writeSync(0);
       state.drainPumpMessage = 'Drain pump is off';
     };
-    console.log(state.waterPumpMessage);
-    console.log(state.drainPumpMessage);
+    if(state.waterPumpMessage.length > 1){
+      console.log(state.waterPumpMessage);
+    };
+    if(state.drainPumpMessage.length > 1){
+      console.log(state.drainPumpMessage);
+    };
+    // console.log(state.waterPumpMessage);
+    // console.log(state.drainPumpMessage);
 
     //  add conditional logic here to log these out only if they resolve truthy ^^
 
