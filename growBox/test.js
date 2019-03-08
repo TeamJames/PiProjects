@@ -236,8 +236,8 @@ function go() {
     // if(state.drainPumpMessage.length > 1){
     //   console.log(state.drainPumpMessage);
     // };
-    // console.log(state.waterPumpMessage);
-    // console.log(state.drainPumpMessage);
+    console.log(state.waterPumpMessage);
+    console.log(state.drainPumpMessage);
 
     //  add conditional logic here to log these out only if they resolve truthy ^^
 
