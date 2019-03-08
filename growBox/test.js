@@ -230,12 +230,12 @@ function go() {
       drainPumpIndicator.writeSync(0);
       state.drainPumpMessage = 'Drain pump is off';
     };
-    if(state.waterPumpMessage.length > 1){
-      console.log(state.waterPumpMessage);
-    };
-    if(state.drainPumpMessage.length > 1){
-      console.log(state.drainPumpMessage);
-    };
+    // if(state.waterPumpMessage.length > 1){
+    //   console.log(state.waterPumpMessage);
+    // };
+    // if(state.drainPumpMessage.length > 1){
+    //   console.log(state.drainPumpMessage);
+    // };
     // console.log(state.waterPumpMessage);
     // console.log(state.drainPumpMessage);
 
