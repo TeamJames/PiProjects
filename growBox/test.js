@@ -129,6 +129,10 @@ function go() {
       state.drainPumpStatus = false;
     };
 
+
+    status();
+  };
+
     pumpButton.watch(function (err) {
       if(state.waterPumpStatus === false){
         state.waterPumpStatus = true;
@@ -138,10 +142,6 @@ function go() {
         state.waterPumpMessage = 'Water pump is off';
       };
     });
-
-    status();
-  };
-
 
   
 
