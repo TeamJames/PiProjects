@@ -30,8 +30,8 @@ function go() {
       hours: 14,
       minutes: 45
     },
-    waterPumpDuration: 8,
-    drainPumpDuration: 6,
+    waterPumpDuration: 10,
+    drainPumpDuration: 5,
     greeting: '',
     waterPumpMessage: '',
     drainPumpMessage: '',
