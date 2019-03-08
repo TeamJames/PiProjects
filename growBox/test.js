@@ -32,7 +32,7 @@ function go() {
     drainPumpDuration: 6,
     greeting: '',
     waterPumpMessage: '',
-    drainPUmpMessage: '',
+    drainPumpMessage: '',
     testMessage: '',
     normalHours: 0,
     normalMinutes: 0,
@@ -165,9 +165,14 @@ function go() {
       if(state.drainPumpStatus === false){
         state.drainPumpStatus = true;
         state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime;
+        state.drainPumpStopTime = minutes + state.drainPumpDuration;
+
+        //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
+
+
       } else {
         state.drainPumpStatus = false;
-        state.drainPumpMessage = 'Water pump is off';
+        state.drainPumpMessage = 'Drain pump is off';
       };
     });
 
@@ -205,16 +210,20 @@ function go() {
       state.waterPumpMessage = 'Water pump is off';
       waterPumpIndicator.writeSync(0);
     };
+    if(state.drainPumpStatus === true) {
+      drainPumpRelay.writeSync(0);
+      drainPumpIndicator.writeSync(1);
+      state.drainPumpMessage = 'Drain pump is running for ' + state.drainPumpDuration + ' minutes';
+    } else {
+      drainPumpRelay.writeSync(1);
+      drainPumpIndicator.writeSync(0);
+      state.drainPumpMessage = '';
+    };
     console.log(state.waterPumpMessage);
     console.log(state.drainPumpMessage);
 
     //  add conditional logic here to log these out only if they resolve truthy ^^
 
-    if(state.drainPumpStatus === true) {
-      drainPumpRelay.writeSync(0);
-      drainPumpIndicator.writeSync(1);
-      state.drainPumpMessage = 'Drain pump is running for ' + state.drainPumpDuration + ' minutes';
-    };
   };
 
   let timeChecker = setInterval(checkTime, 1000);
