@@ -24,11 +24,11 @@ function go() {
     vegStopTime: 23,
     flowerStartTime: {
       hours: 16,
-      minutes: 0
+      minutes: 30
     },
     flowerStopTime: {
-      hours: 16,
-      minutes: 45
+      hours: 18,
+      minutes: 0
     },
     waterPumpDuration: 10,
     drainPumpDuration: 5,
@@ -70,20 +70,22 @@ function go() {
   state.waterPumpStartTime.minutes = state.flowerStartTime.minutes;
   state.waterPumpStopTime.hours = state.waterPumpStartTime.hours;
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
+  if(state.waterPumpStopTime.minutes > 59){
+    state.waterPumpStopTime.hours +=1;
+    state.waterPumpStopTime.minutes -=60;
+  };
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
-  if(state.drainPumpStartTime.minutes > 60){
+  if(state.drainPumpStartTime.minutes > 59){
     state.drainPumpStartTime.hours +=1;
     state.drainPumpStartTime.minutes -=60;
   };
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
-  if(state.drainPumpStopTime.minutes > 60){
+  if(state.drainPumpStopTime.minutes > 59){
         state.drainPumpStopTime.hours +=1;
         state.drainPumpStopTime.minutes -=60;
     };
-
-
 
 
   function checkTime() {
@@ -184,7 +186,7 @@ function go() {
         state.drainPumpStatus = true;
         state.drainPumpStopTime.hours = state.hours;
         state.drainPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
-        state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
+        // state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
 
         //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
 
@@ -201,9 +203,9 @@ function go() {
   function status() {
     console.clear();
     console.log(state.greeting);
-    console.log(state.testMessage);
-    console.log('cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
+    console.log('cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
+    console.log(state.testMessage);
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
       // vegRoomIndicator.writeSync(1);
