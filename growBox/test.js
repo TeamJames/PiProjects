@@ -72,8 +72,16 @@ function go() {
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
+  if(state.drainPumpStartTime.minutes > 60){
+    state.drainPumpStartTime.hours +=1;
+    state.drainPumpStartTime.minutes -=60;
+  };
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
+  if(state.drainPumpStopTime.minutes > 60){
+        state.drainPumpStopTime.hours +=1;
+        state.drainPumpStopTime.minutes -=60;
+    };
 
 
 
@@ -174,8 +182,9 @@ function go() {
       if(err){return console.log(err);}
       if(state.drainPumpStatus === false){
         state.drainPumpStatus = true;
-        state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
+        state.drainPumpStopTime.hours = state.hours;
         state.drainPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
+        state.testMessage = 'state.drainPumpStopTime: ' + state.drainPumpStopTime.hours + ':' + state.drainPumpStopTime.minutes;
 
         //  THIS WILL NEED TO BE NORMALIZED FOR ROLLOVER AT 60 MINUTES
 
@@ -193,6 +202,7 @@ function go() {
     console.clear();
     console.log(state.greeting);
     console.log(state.testMessage);
+    console.log('cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
