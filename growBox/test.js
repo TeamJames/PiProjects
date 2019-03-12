@@ -291,15 +291,13 @@ function go() {
     
     console.log(state.waterPumpMessage);
     console.log(state.drainPumpMessage);
-    console.log(state.manualWaterPumpMessage);
-    console.log(state.manualDrainPumpMessage);
     if(state.manualDrainPumpStatus){
       console.log(state.manualDrainPumpMessage);
     };
     if(state.manualWaterPumpStatus){
       console.log(state.manualWaterPumpMessage);
     };
-    
+
   };
 
   let timeChecker = setInterval(checkTime, 1000);
