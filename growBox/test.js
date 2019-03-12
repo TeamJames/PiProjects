@@ -37,7 +37,7 @@ function go() {
     drainPumpMessage: '',
     manualWaterPumpMessage: '',
     manualDrainPumpMessage: '',
-    testMessage: '',
+    testMessage: null,
     normalHours: 0,
     normalMinutes: 0,
     normalSeconds: 0,
@@ -233,7 +233,7 @@ function go() {
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
     console.log('cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
-    console.log(state.testMessage);
+    if(state.testMessage){console.log(state.testMessage);};
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
       // vegRoomIndicator.writeSync(1);
