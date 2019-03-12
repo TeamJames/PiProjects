@@ -261,7 +261,7 @@ function go() {
       state.waterPumpMessage = 'Water pump is off';
       waterPumpIndicator.writeSync(0);
     };
-    if(state.manualWaterPumpStatus === true){
+    if(state.manualWaterPumpStatus === true && state.waterPumpStatus === false){
       waterPumpRelay.writeSync(0);
       waterPumpIndicator.writeSync(1);
       state.manualWaterPumpMessage = 'Manual Water Pump Start Time: ' + state.manualWaterPumpStartTime.hours + ':' + state.manualWaterPumpStartTime.minutes + '      Manual Water Pump Stop Time: ' + state.manualWaterPumpStopTime.hours + ':' + state.manualWaterPumpStopTime.minutes;
@@ -279,7 +279,7 @@ function go() {
       drainPumpIndicator.writeSync(0);
       state.drainPumpMessage = 'Drain pump is off';
     };
-    if(state.manualDrainPumpStatus === true){
+    if(state.manualDrainPumpStatus === true && state.drainPumpStatus === false){
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
       state.manualDrainPumpMessage = 'Manual Drain Pump Start Time: ' + state.manualDrainPumpStartTime.hours + ':' + state.manualDrainPumpStartTime.minutes + '      Manual Drain Pump Stop Time: ' + state.manualDrainPumpStopTime.hours + ':' + state.manualDrainPumpStopTime.minutes;
