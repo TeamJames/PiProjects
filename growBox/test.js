@@ -254,7 +254,6 @@ function go() {
     };
     if (state.waterPumpStatus === true) {
       waterPumpRelay.writeSync(0);
-      console.log('water pump should be running, its status is: ', state.waterPumpStatus);
       waterPumpIndicator.writeSync(1);
       state.waterPumpMessage = 'Water Pump Start Time: ' + state.waterPumpStartTime.hours + ':' + state.waterPumpStartTime.minutes + '    Water Pump Stop Time: ' + state.waterPumpStopTime.hours + ':' + state.waterPumpStopTime.minutes;
     } else {
@@ -267,11 +266,11 @@ function go() {
       waterPumpIndicator.writeSync(1);
       state.manualWaterPumpMessage = 'Manual Water Pump Start Time: ' + state.manualWaterPumpStartTime.hours + ':' + state.manualWaterPumpStartTime.minutes + '      Manual Water Pump Stop Time: ' + state.manualWaterPumpStopTime.hours + ':' + state.manualWaterPumpStopTime.minutes;
     };
-    //  else {
-    //   waterPumpRelay.writeSync(1);
-    //   state.manualWaterPumpMessage = '';
-    //   waterPumpIndicator.writeSync(0);
-    // };
+    if(state.manualWaterPumpStatus === false && state.waterPumpStatus === false){
+      waterPumpRelay.writeSync(1);
+      waterPumpIndicator.writeSync(0);
+      state.manualWaterPumpMessage = '';
+    };
     if(state.drainPumpStatus === true) {
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
@@ -285,7 +284,8 @@ function go() {
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
       state.manualDrainPumpMessage = 'Manual Drain Pump Start Time: ' + state.manualDrainPumpStartTime.hours + ':' + state.manualDrainPumpStartTime.minutes + '      Manual Drain Pump Stop Time: ' + state.manualDrainPumpStopTime.hours + ':' + state.manualDrainPumpStopTime.minutes;
-    }else{
+    };
+    if(state.manualDrainPumpStatus === false && state.drainPumpStatus === false){
       drainPumpRelay.writeSync(1);
       drainPumpIndicator.writeSync(0);
       state.manualDrainPumpMessage = '';
