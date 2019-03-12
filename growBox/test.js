@@ -254,6 +254,7 @@ function go() {
     };
     if (state.waterPumpStatus === true) {
       waterPumpRelay.writeSync(0);
+      console.log('water pump should be running, its status is: ', state.waterPumpStatus);
       waterPumpIndicator.writeSync(1);
       state.waterPumpMessage = 'Water Pump Start Time: ' + state.waterPumpStartTime.hours + ':' + state.waterPumpStartTime.minutes + '    Water Pump Stop Time: ' + state.waterPumpStopTime.hours + ':' + state.waterPumpStopTime.minutes;
     } else {
