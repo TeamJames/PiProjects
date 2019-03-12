@@ -264,7 +264,7 @@ function go() {
       waterPumpIndicator.writeSync(1);
       state.manualWaterPumpMessage = 'Manual Water Pump Start Time: ' + state.manualWaterPumpStartTime.hours + ':' + state.manualWaterPumpStartTime.minutes + '      Manual Water Pump Stop Time: ' + state.manualWaterPumpStopTime.hours + ':' + state.manualWaterPumpStopTime.minutes;
     } else {
-      manualWaterPumpRelay.writeSync(1);
+      waterPumpRelay.writeSync(1);
       state.manualWaterPumpMessage = '';
       waterPumpIndicator.writeSync(0);
     };
