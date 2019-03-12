@@ -23,11 +23,11 @@ function go() {
     vegStartTime: 5,
     vegStopTime: 23,
     flowerStartTime: {
-      hours: 16,
-      minutes: 30
+      hours: 7,
+      minutes: 0
     },
     flowerStopTime: {
-      hours: 18,
+      hours: 19,
       minutes: 0
     },
     waterPumpDuration: 10,
@@ -210,7 +210,7 @@ function go() {
         state.manualDrainPumpStartTime.hours = state.hours;
         state.manualDrainPumpStartTime.minutes = state.minutes;
         state.manualDrainPumpStopTime.hours = state.hours;
-        state.manualDrainPumpStopTime.minutes = state.minutes;
+        state.manualDrainPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
         if(state.manualDrainPumpStopTime.minutes > 59){
           state.manualDrainPumpStopTime.hours += 1;
           state.manualDrainPumpStopTime.minutes -= 60;
