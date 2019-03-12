@@ -31,6 +31,10 @@ function go() {
     seconds: 0,
     vegStatus: false,
     flowerStatus: false,
+    waterPumpStatus: false,
+    manualWaterPumpStatus: false,
+    drainPumpStatus: false,
+    manualDrainPumpStatus: false,
     waterPumpStartTime: {
       hours: 0,
       minutes: 0
@@ -39,12 +43,27 @@ function go() {
       hours: 0,
       minutes: 0
     },
-    waterPumpStatus: false,
+    manualWaterPumpStartTime: {
+      hours: 0,
+      minutes: 0
+    },
+    manualWaterPumpStopTime: {
+      hours: 0,
+      minutes: 0
+    },
     drainPumpStartTime: {
       hours: 0,
       minutes: 0
     },
     drainPumpStopTime: {
+      hours: 0,
+      minutes: 0
+    }
+    manualDrainPumpStartTime: {
+      hours: 0,
+      minutes: 0
+    },
+    manualDrainPumpStopTime: {
       hours: 0,
       minutes: 0
     }
@@ -54,20 +73,19 @@ function go() {
   state.waterPumpStartTime.minutes = state.vegStartTime.minutes;
   state.waterPumpStopTime.hours = state.waterPumpStartTime.hours;
   state.waterPumpStopTime.minutes = state.waterPumpStartTime.minutes + state.waterPumpDuration;
+  if(state.waterPumpStopTime.minutes > 59){
+    state.waterPumpStopTime.minutes -= 60;
+    state.waterPumpStopTime.hours +=1;
+  };
   state.drainPumpStartTime.hours = state.waterPumpStartTime.hours;
   state.drainPumpStartTime.minutes = state.waterPumpStopTime.minutes + 1;
   state.drainPumpStopTime.hours = state.drainPumpStartTime.hours;
   state.drainPumpStopTime.minutes = state.drainPumpStartTime.minutes + state.drainPumpDuration;
+  if(state.drainPumpStopTime.minutes > 59){
+    state.drainPumpStopTime.minutes -=60;
+    state.drainPumpStopTime.hours +=1;
+  };
 
-  // pumpButton.watch(function (err, value) {
-  //   if (err) {
-  //     return console.log(err);
-  //   };
-  //   if (waterPumpStatus) {
-  //     return console.log('hey looks like the water pump is on');
-  //   } else {
-  //     return console.log('definitely looks like the pump is off');
-  //   };
 
   function checkTime() {
     const time = require('./lights/clock.js');
@@ -120,7 +138,7 @@ function go() {
     if (state.waterPumpStartTime.hours === state.hours && state.waterPumpStartTime.minutes === state.minutes) {
       state.waterPumpStatus = true;
     };
-    if (state.waterPumpStopTime.minutes === state.minutes) {
+    if (state.waterPumpStopTime.hours === state.hours && state.waterPumpStopTime.minutes === state.minutes) {
       state.waterPumpStatus = false;
     };
 
@@ -129,22 +147,53 @@ function go() {
     if (state.drainPumpStartTime.hours === state.hours && state.drainPumpStartTime.minutes === state.minutes) {
       state.drainPumpStatus = true;
     };
-    if (state.drainPumpStopTime.minutes === state.minutes) {
+    if (state.drainPumpStopTime.hours === state.hours && state.drainPumpStopTime.minutes === state.minutes) {
       state.drainPumpStatus = false;
     };
 
     //  buttons
-    // pumpButton.watch(function(err){
-    //   if(err){return console.log(err)};
-    //     if(state.waterPumpStatus === true){
-    //       console.log('turning off water pump');
-    //       state.waterPumpStatus = false;
-    //     };
-    //     if(state.waterPumpStatus === false){
-    //       console.log('turning on water pump');
-    //       state.waterPumpStatus = true;
-    //     };
-    //   });
+
+
+    pumpButton.watch(function(err){
+      if(err){return console.log(err)};
+        if(state.waterPumpStatus === false){
+          console.log('Manual Water Pump:  ON');
+          state.manualWaterPumpStatus = true;
+          state.manualWaterPumpStartTime.hours = state.hours;
+          state.manualWaterPumpStartTime.minutes = state.minutes;
+          state.manualWaterPumpStopTime.hours = state.hours;
+          state.manualWaterPumpStopTime.minutes = state.minutes + waterPumpDuration;
+          if(state.manualWaterPumpStopTime.minutes > 59){
+            state.manualWaterPumpStopTime.minutes -= 60;
+            state.manualWaterPumpStopTime.hours += 1;
+          };
+        };
+        if(state.waterPumpStatus === true){
+          console.log('Manual Water Pump:  OFF');
+          state.waterPumpStatus = false;
+        };
+      });
+
+    drainButton.watch(function(err){
+      if(err){return console.log(err)};
+        if(state.manualDrainPumpStatus === false){
+          console.log('Manual Drain Pump:  ON');
+          state.manualDrainPumpStatus = true;
+          state.manualDrainPumpStartTime.hours = state.hours;
+          state.manualDrainPumpStartTime.minutes = state.minutes;
+          state.manualDrainPumpStopTime.hours = state.hours;
+          state.manualDrainPumpStopTime.minutes = state.minutes + drainPumpDuration;
+          if(state.manualDrainPumpStopTime.minutes > 59){
+            state.manualDrainPumpStopTime.minutes -= 60;
+            state.manualDrainPumpStopTime.hours +=1;
+          };
+        };
+        if(state.manualDrainPumpStatus === true){
+          console.log('Manual Drain Pump:  OFF');
+          state.manualDrainPumpStatus = false;
+        };
+    });
+    
   };
 
 
