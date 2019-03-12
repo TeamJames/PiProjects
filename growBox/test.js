@@ -289,12 +289,14 @@ function go() {
     
     console.log(state.waterPumpMessage);
     console.log(state.drainPumpMessage);
-    if(state.manualDrainPumpMessage.length > 1){
-      console.log(state.manualWaterPumpMessage);
-    };
-    if(state.manualDrainPumpMessage.length > 1){
-      console.log(state.manualDrainPumpMessage);
-    };
+    console.log(state.manualWaterPumpMessage);
+    console.log(state.manualDrainPumpMessage);
+    // if(state.manualDrainPumpMessage.length > 1){
+    //   console.log(state.manualWaterPumpMessage);
+    // };
+    // if(state.manualDrainPumpMessage.length > 1){
+    //   console.log(state.manualDrainPumpMessage);
+    // };
     
   };
 
