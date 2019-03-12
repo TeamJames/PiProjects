@@ -257,9 +257,7 @@ function go() {
       console.log('water pump should be running, its status is: ', state.waterPumpStatus);
       waterPumpIndicator.writeSync(1);
       state.waterPumpMessage = 'Water Pump Start Time: ' + state.waterPumpStartTime.hours + ':' + state.waterPumpStartTime.minutes + '    Water Pump Stop Time: ' + state.waterPumpStopTime.hours + ':' + state.waterPumpStopTime.minutes;
-    };
-    if(state.waterPumpStatus === false){
-      console.log('state.waterPumpStatus: ', state.waterPumpStatus);
+    } else {
       waterPumpRelay.writeSync(1);
       state.waterPumpMessage = 'Water Pump is off';
       waterPumpIndicator.writeSync(0);
@@ -268,11 +266,12 @@ function go() {
       waterPumpRelay.writeSync(0);
       waterPumpIndicator.writeSync(1);
       state.manualWaterPumpMessage = 'Manual Water Pump Start Time: ' + state.manualWaterPumpStartTime.hours + ':' + state.manualWaterPumpStartTime.minutes + '      Manual Water Pump Stop Time: ' + state.manualWaterPumpStopTime.hours + ':' + state.manualWaterPumpStopTime.minutes;
-    } else {
-      waterPumpRelay.writeSync(1);
-      state.manualWaterPumpMessage = '';
-      waterPumpIndicator.writeSync(0);
     };
+    //  else {
+    //   waterPumpRelay.writeSync(1);
+    //   state.manualWaterPumpMessage = '';
+    //   waterPumpIndicator.writeSync(0);
+    // };
     if(state.drainPumpStatus === true) {
       drainPumpRelay.writeSync(0);
       drainPumpIndicator.writeSync(1);
