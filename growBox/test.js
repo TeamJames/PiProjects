@@ -293,12 +293,12 @@ function go() {
     console.log(state.drainPumpMessage);
     console.log(state.manualWaterPumpMessage);
     console.log(state.manualDrainPumpMessage);
-    // if(state.manualDrainPumpMessage.length > 1){
-    //   console.log(state.manualWaterPumpMessage);
-    // };
-    // if(state.manualDrainPumpMessage.length > 1){
-    //   console.log(state.manualDrainPumpMessage);
-    // };
+    if(state.manualDrainPumpStatus){
+      console.log(state.manualDrainPumpMessage);
+    };
+    if(state.manualWaterPumpStatus){
+      console.log(state.manualWaterPumpMessage);
+    };
     
   };
 
