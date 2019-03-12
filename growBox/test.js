@@ -279,7 +279,7 @@ function go() {
     };
     if(state.manualDrainPumpStatus === true){
       drainPumpRelay.writeSync(0);
-      drainPumpIndicator.writesync(1);
+      drainPumpIndicator.writeSync(1);
       state.manualDrainPumpMessage = 'Manual Drain Pump Start Time: ' + state.manualDrainPumpStartTime.hours + ':' + state.manualDrainPumpStartTime.minutes + '      Manual Drain Pump Stop Time: ' + state.manualDrainPumpStopTime.hours + ':' + state.manualDrainPumpStopTime.minutes;
     }else{
       drainPumpRelay.writeSync(1);
