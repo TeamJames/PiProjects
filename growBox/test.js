@@ -232,7 +232,7 @@ function go() {
     console.clear();
     console.log(state.greeting);
     console.log('The current time is: ', state.normalHours, ':', state.normalMinutes, ':', state.normalSeconds);
-    console.log('cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
+    console.log('Automated watering cycle complete at: ', state.drainPumpStopTime.hours, ':', state.drainPumpStopTime.minutes);
     if(state.testMessage){console.log(state.testMessage);};
     if (state.vegStatus) {
       // vegRoomRelay.writeSync(1);
