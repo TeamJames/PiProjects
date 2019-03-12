@@ -148,11 +148,13 @@ function go() {
     };
 
     //  flower room lights
-    if (state.hours >= state.flowerStartTime.hours && state.hours <= state.flowerStopTime.hours && state.minutes >= state.flowerStartTime.minutes && state.minutes < state.flowerStopTime.minutes) {
-      state.flowerStatus = true;
-    } else {
+    if (state.hours >= state.flowerStopTime.hours &&  state.minutes > state.flowerStopTime.minutes) {
       state.flowerStatus = false;
     };
+    if (state.hours >= state.flowerStartTime.hours && state.minutes >= state.flowerStartTime.minutes){
+      state.flowerStatus = true;
+    };
+    
 
     //  flower room water pump
 
