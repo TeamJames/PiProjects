@@ -189,7 +189,7 @@ function go() {
         state.manualWaterPumpStartTime.hours = state.hours;
         state.manualWaterPumpStartTime.minutes = state.minutes;
         state.manualWaterPumpStopTime.hours = state.hours;
-        state.manualWaterPumpStopTime.minutes = state.minutes + drainPumpDuration;
+        state.manualWaterPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
         if(state.manualWaterPumpStopTime.minutes > 59){
           state.manualWaterPumpStopTime.minutes -= 60;
           state.manualWaterPumpStopTime.hours += 1;
