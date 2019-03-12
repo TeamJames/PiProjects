@@ -189,14 +189,14 @@ function go() {
         state.manualWaterPumpStartTime.hours = state.hours;
         state.manualWaterPumpStartTime.minutes = state.minutes;
         state.manualWaterPumpStopTime.hours = state.hours;
-        state.manualWaterPumpStopTime.minutes = state.minutes + state.drainPumpDuration;
+        state.manualWaterPumpStopTime.minutes = state.minutes + state.waterPumpDuration;
         if(state.manualWaterPumpStopTime.minutes > 59){
           state.manualWaterPumpStopTime.minutes -= 60;
           state.manualWaterPumpStopTime.hours += 1;
         };
         state.manualWaterPumpMessage = 'Manual Water Pump:  ON';
       } else {
-        state.waterPumpStatus = false;
+        state.manualWaterPumpStatus = false;
         state.manualWaterPumpMessage = '';
       };
     });
