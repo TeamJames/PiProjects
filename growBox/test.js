@@ -72,7 +72,7 @@ function go() {
     drainPumpStopTime: {
       hours: 0,
       minutes: 0
-    }
+    },
     manualDrainPumpStartTime: {
       hours: 0,
       minutes: 0
