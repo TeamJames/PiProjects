@@ -185,7 +185,10 @@ function go() {
 
     pumpButton.watch(function (err) {
       if(err){return console.log(err);}
-      if(state.waterPumpStatus === true){return console.log('Error:  Water pump already running!');};
+      if(state.waterPumpStatus === true){
+        console.log('water pump already running');
+        state.waterPumpStatus = false;
+      };
       if(state.manualWaterPumpStatus === false){
         state.manualWaterPumpStatus = true;
         state.manualWaterPumpStartTime.hours = state.hours;
@@ -206,7 +209,10 @@ function go() {
   
     drainButton.watch(function (err) {
       if(err){return console.log(err);}
-      if(state.drainPumpStatus === true){return console.log('Error:  Drain pump already running!');};
+      if(state.drainPumpStatus === true){
+        console.log('drain pump already running');
+        state.drainPumpStatus = false;
+      };
       if(state.manualDrainPumpStatus === false){
         state.manualDrainPumpStatus = true;
         state.manualDrainPumpStartTime.hours = state.hours;
